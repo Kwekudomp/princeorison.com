@@ -1,0 +1,655 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prince Orison Fashion House | Detailed to Perfection</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-black: #000000;
+            --primary-white: #FFFFFF;
+            --ash: #B8B8B8;
+            --gray-light: #E5E5E5;
+            --gray-medium: #666666;
+        }
+
+        body {
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+            color: var(--primary-black);
+            background: var(--primary-white);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.98);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            padding: 1.5rem 5%;
+            border-bottom: 1px solid var(--gray-light);
+        }
+
+        nav .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            letter-spacing: 2px;
+            color: var(--primary-black);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 3rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--primary-black);
+            font-size: 0.95rem;
+            letter-spacing: 1px;
+            transition: color 0.3s;
+            text-transform: uppercase;
+        }
+
+        .nav-links a:hover {
+            color: var(--ash);
+        }
+
+        .menu-toggle {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+        }
+
+        .menu-toggle span {
+            width: 25px;
+            height: 2px;
+            background: var(--primary-black);
+            margin: 3px 0;
+            transition: 0.3s;
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #f5f5f5 0%, #ffffff 100%);
+            text-align: center;
+            padding: 0 5%;
+            margin-top: 80px;
+        }
+
+        .hero-content h1 {
+            font-size: 4rem;
+            font-weight: 300;
+            letter-spacing: 8px;
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+        }
+
+        .hero-content .tagline {
+            font-size: 1.3rem;
+            letter-spacing: 3px;
+            color: var(--gray-medium);
+            margin-bottom: 2rem;
+            font-style: italic;
+        }
+
+        .hero-content .mission {
+            max-width: 700px;
+            margin: 0 auto 3rem;
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: var(--gray-medium);
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 1rem 3rem;
+            background: var(--primary-black);
+            color: var(--primary-white);
+            text-decoration: none;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            transition: all 0.3s;
+            border: 2px solid var(--primary-black);
+        }
+
+        .cta-button:hover {
+            background: var(--primary-white);
+            color: var(--primary-black);
+        }
+
+        /* Section Styles */
+        section {
+            padding: 6rem 5%;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            font-size: 3rem;
+            font-weight: 300;
+            letter-spacing: 6px;
+            text-align: center;
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+        }
+
+        .section-subtitle {
+            text-align: center;
+            color: var(--gray-medium);
+            margin-bottom: 4rem;
+            font-size: 1.1rem;
+            letter-spacing: 2px;
+        }
+
+        /* Collections Grid */
+        .collections-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .collection-card {
+            position: relative;
+            overflow: hidden;
+            aspect-ratio: 3/4;
+            background: var(--gray-light);
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+
+        .collection-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .collection-card img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s;
+        }
+
+        .collection-card:hover img {
+            transform: scale(1.05);
+        }
+
+        .collection-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(to top, rgba(0,0,0,0.9), transparent);
+            padding: 2rem;
+            color: white;
+        }
+
+        .collection-title {
+            font-size: 1.5rem;
+            letter-spacing: 3px;
+            margin-bottom: 0.5rem;
+            text-transform: uppercase;
+        }
+
+        .collection-desc {
+            font-size: 0.9rem;
+            letter-spacing: 1px;
+            opacity: 0.9;
+        }
+
+        /* About Section */
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .about-text h3 {
+            font-size: 2rem;
+            letter-spacing: 3px;
+            margin-bottom: 1.5rem;
+            font-weight: 300;
+        }
+
+        .about-text p {
+            margin-bottom: 1.5rem;
+            line-height: 1.8;
+            color: var(--gray-medium);
+        }
+
+        .values {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .value-item {
+            padding: 1.5rem;
+            border: 1px solid var(--gray-light);
+        }
+
+        .value-item h4 {
+            letter-spacing: 2px;
+            margin-bottom: 0.5rem;
+        }
+
+        .value-item p {
+            font-size: 0.9rem;
+            color: var(--gray-medium);
+        }
+
+        /* Contact Section */
+        .contact-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+        }
+
+        .contact-info {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+
+        .info-block h4 {
+            letter-spacing: 2px;
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+        }
+
+        .info-block p, .info-block a {
+            color: var(--gray-medium);
+            text-decoration: none;
+            line-height: 1.8;
+        }
+
+        .info-block a:hover {
+            color: var(--primary-black);
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1.5rem;
+            margin-top: 1rem;
+        }
+
+        .social-links a {
+            display: inline-block;
+            width: 45px;
+            height: 45px;
+            border: 1px solid var(--gray-medium);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s;
+            text-decoration: none;
+            color: var(--gray-medium);
+        }
+
+        .social-links a:hover {
+            background: var(--primary-black);
+            border-color: var(--primary-black);
+            color: var(--primary-white);
+        }
+
+        .contact-form {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .form-group label {
+            margin-bottom: 0.5rem;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            font-size: 0.85rem;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            padding: 1rem;
+            border: 1px solid var(--gray-light);
+            background: var(--primary-white);
+            font-family: inherit;
+            transition: border-color 0.3s;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--primary-black);
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 150px;
+        }
+
+        .submit-btn {
+            padding: 1rem 2rem;
+            background: var(--primary-black);
+            color: var(--primary-white);
+            border: 2px solid var(--primary-black);
+            cursor: pointer;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            transition: all 0.3s;
+        }
+
+        .submit-btn:hover {
+            background: var(--primary-white);
+            color: var(--primary-black);
+        }
+
+        /* Footer */
+        footer {
+            background: var(--primary-black);
+            color: var(--primary-white);
+            text-align: center;
+            padding: 3rem 5%;
+        }
+
+        footer p {
+            letter-spacing: 2px;
+            opacity: 0.8;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .menu-toggle {
+                display: flex;
+            }
+
+            .nav-links {
+                position: fixed;
+                left: -100%;
+                top: 80px;
+                flex-direction: column;
+                background: var(--primary-white);
+                width: 100%;
+                padding: 2rem;
+                transition: 0.3s;
+                border-top: 1px solid var(--gray-light);
+            }
+
+            .nav-links.active {
+                left: 0;
+            }
+
+            .hero-content h1 {
+                font-size: 2.5rem;
+                letter-spacing: 4px;
+            }
+
+            .hero-content .tagline {
+                font-size: 1rem;
+            }
+
+            .section-title {
+                font-size: 2rem;
+                letter-spacing: 3px;
+            }
+
+            .about-content,
+            .contact-content {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .values {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <div class="container">
+            <div class="logo">PRINCE ORISON</div>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#collections">Collections</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+            <div class="menu-toggle" id="menuToggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="hero-content">
+            <h1>Prince Orison</h1>
+            <p class="tagline">Detailed to Perfection</p>
+            <p class="mission">
+                Creating refined, contemporary African fashion that blends craftsmanship, structure, and timeless elegance for the modern individual.
+            </p>
+            <a href="#collections" class="cta-button">Explore Collections</a>
+        </div>
+    </section>
+
+    <!-- Collections Section -->
+    <section id="collections">
+        <h2 class="section-title">Collections</h2>
+        <p class="section-subtitle">Curated pieces for the discerning individual</p>
+        
+        <div class="collections-grid">
+            <div class="collection-card">
+                <img src="https://images.unsplash.com/photo-1617127365659-c47fa864d8bc?w=600&h=800&fit=crop" alt="Kaftan & Agbada">
+                <div class="collection-overlay">
+                    <h3 class="collection-title">Kaftan & Agbada</h3>
+                    <p class="collection-desc">Structured 3-piece sets combining traditional elegance with modern tailoring</p>
+                </div>
+            </div>
+
+            <div class="collection-card">
+                <img src="https://images.unsplash.com/photo-1620799140408-edc6dcb6d633?w=600&h=800&fit=crop" alt="Shirts & Casual Kaftan Tops">
+                <div class="collection-overlay">
+                    <h3 class="collection-title">Shirts & Tops</h3>
+                    <p class="collection-desc">Contemporary casual wear with premium finishing and perfect fit</p>
+                </div>
+            </div>
+
+            <div class="collection-card">
+                <img src="https://images.unsplash.com/photo-1624378439575-d8705ad7ae80?w=600&h=800&fit=crop" alt="Trousers & Shorts">
+                <div class="collection-overlay">
+                    <h3 class="collection-title">Trousers & Shorts</h3>
+                    <p class="collection-desc">Tailored bottoms crafted for comfort and sophistication</p>
+                </div>
+            </div>
+
+            <div class="collection-card">
+                <img src="https://images.unsplash.com/photo-1515372039744-b8f02a3ae446?w=600&h=800&fit=crop" alt="Women's Ready-to-Wear">
+                <div class="collection-overlay">
+                    <h3 class="collection-title">Women's Collection</h3>
+                    <p class="collection-desc">Elegant ready-to-wear pieces celebrating feminine strength and style</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about">
+        <h2 class="section-title">About</h2>
+        <p class="section-subtitle">The Art of Refined African Fashion</p>
+        
+        <div class="about-content">
+            <div class="about-text">
+                <h3>Our Story</h3>
+                <p>
+                    Prince Orison Fashion House stands at the intersection of African heritage and contemporary design. We create fashion that honors tradition while embracing modernity—each piece meticulously crafted to elevate your presence.
+                </p>
+                <p>
+                    Our focus on structure, fit, and premium finishing sets us apart. We don't chase trends; we create timeless pieces that speak to quality, exclusivity, and intention. From the boardroom to ceremonial occasions, Prince Orison designs are made for those who understand that true style is eternal.
+                </p>
+                <p>
+                    Located in Accra, Ghana, we serve entrepreneurs, professionals, creatives, and executives—individuals who value craftsmanship and refuse to compromise on quality.
+                </p>
+            </div>
+
+            <div class="values">
+                <div class="value-item">
+                    <h4>Craftsmanship</h4>
+                    <p>Every stitch tells a story of dedication and precision</p>
+                </div>
+                <div class="value-item">
+                    <h4>Structure</h4>
+                    <p>Tailored to perfection for the modern silhouette</p>
+                </div>
+                <div class="value-item">
+                    <h4>Timelessness</h4>
+                    <p>Designs that transcend seasonal trends</p>
+                </div>
+                <div class="value-item">
+                    <h4>Exclusivity</h4>
+                    <p>Limited pieces, maximum impact</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact">
+        <h2 class="section-title">Contact</h2>
+        <p class="section-subtitle">Let's create something exceptional together</p>
+        
+        <div class="contact-content">
+            <div class="contact-info">
+                <div class="info-block">
+                    <h4>Visit Us</h4>
+                    <p>
+                        Achimota ABC<br>
+                        Accra, Ghana<br>
+                        GPS: GE-370-8751
+                    </p>
+                    <p style="margin-top: 1rem; font-style: italic;">
+                        Find us on Maps / Uber / Bolt / Yango: "Prince Orison"
+                    </p>
+                </div>
+
+                <div class="info-block">
+                    <h4>Get in Touch</h4>
+                    <p>
+                        Email: <a href="mailto:princeorison1@gmail.com">princeorison1@gmail.com</a><br>
+                        Phone/WhatsApp: <a href="tel:+233245099930">+233 24 509 9930</a>
+                    </p>
+                </div>
+
+                <div class="info-block">
+                    <h4>Follow Us</h4>
+                    <div class="social-links">
+                        <a href="https://instagram.com/princeorison" target="_blank" title="Instagram">IG</a>
+                        <a href="https://tiktok.com/@princeorison" target="_blank" title="TikTok">TT</a>
+                        <a href="https://wa.me/233245099930" target="_blank" title="WhatsApp">WA</a>
+                    </div>
+                </div>
+            </div>
+
+            <form class="contact-form" id="contactForm">
+                <div class="form-group">
+                    <label for="name">Name</label>
+                    <input type="text" id="name" name="name" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="message">Message</label>
+                    <textarea id="message" name="message" required></textarea>
+                </div>
+                <button type="submit" class="submit-btn">Send Message</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2026 PRINCE ORISON FASHION HOUSE. ALL RIGHTS RESERVED.</p>
+        <p style="margin-top: 1rem; opacity: 0.6;">DETAILED TO PERFECTION</p>
+    </footer>
+
+    <script>
+        // Mobile menu toggle
+        const menuToggle = document.getElementById('menuToggle');
+        const navLinks = document.getElementById('navLinks');
+
+        menuToggle.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+        });
+
+        // Close menu when clicking on a link
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                navLinks.classList.remove('active');
+            });
+        });
+
+        // Smooth scrolling
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Form submission
+        document.getElementById('contactForm').addEventListener('submit', (e) => {
+            e.preventDefault();
+            alert('Thank you for your message! We will get back to you soon.');
+            e.target.reset();
+        });
+
+        // Navbar background on scroll
+        window.addEventListener('scroll', () => {
+            const nav = document.querySelector('nav');
+            if (window.scrollY > 50) {
+                nav.style.background = 'rgba(255, 255, 255, 0.98)';
+                nav.style.boxShadow = '0 2px 10px rgba(0,0,0,0.1)';
+            } else {
+                nav.style.background = 'rgba(255, 255, 255, 0.98)';
+                nav.style.boxShadow = 'none';
+            }
+        });
+    </script>
+</body>
+</html>
