@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trousers & Shorts Collection | Prince Orison Fashion House</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-black: #000000;
+            --primary-white: #FFFFFF;
+            --ash: #B8B8B8;
+            --gray-light: #E5E5E5;
+            --gray-medium: #666666;
+        }
+
+        body {
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+            color: var(--primary-black);
+            background: var(--primary-white);
+            line-height: 1.6;
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.98);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            padding: 1.5rem 5%;
+            border-bottom: 1px solid var(--gray-light);
+        }
+
+        nav .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            letter-spacing: 2px;
+            color: var(--primary-black);
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 3rem;
+            list-style: none;
+            align-items: center;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--primary-black);
+            font-size: 0.95rem;
+            letter-spacing: 1px;
+            transition: color 0.3s;
+            text-transform: uppercase;
+        }
+
+        .nav-links a:hover {
+            color: var(--ash);
+        }
+
+        .back-link {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        /* Collection Hero */
+        .collection-hero {
+            margin-top: 80px;
+            padding: 4rem 5%;
+            background: linear-gradient(135deg, #f5f5f5 0%, #ffffff 100%);
+            text-align: center;
+        }
+
+        .collection-hero h1 {
+            font-size: 3.5rem;
+            font-weight: 300;
+            letter-spacing: 8px;
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+        }
+
+        .collection-hero p {
+            font-size: 1.2rem;
+            color: var(--gray-medium);
+            letter-spacing: 2px;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        /* Product Grid */
+        .products-section {
+            padding: 4rem 5%;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 3rem;
+        }
+
+        .product-card {
+            background: var(--primary-white);
+            border: 1px solid var(--gray-light);
+            overflow: hidden;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        .product-image {
+            width: 100%;
+            aspect-ratio: 3/4;
+            overflow: hidden;
+            position: relative;
+            cursor: pointer;
+        }
+
+        .product-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s;
+        }
+
+        .product-card:hover .product-image img {
+            transform: scale(1.05);
+        }
+
+        .product-info {
+            padding: 2rem;
+        }
+
+        .product-name {
+            font-size: 1.5rem;
+            letter-spacing: 2px;
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+            font-weight: 400;
+        }
+
+        .product-description {
+            color: var(--gray-medium);
+            line-height: 1.8;
+            margin-bottom: 1.5rem;
+        }
+
+        .product-features {
+            list-style: none;
+            margin-bottom: 1.5rem;
+        }
+
+        .product-features li {
+            padding: 0.5rem 0;
+            border-bottom: 1px solid var(--gray-light);
+            font-size: 0.9rem;
+            letter-spacing: 1px;
+        }
+
+        .product-features li:last-child {
+            border-bottom: none;
+        }
+
+        .inquire-btn {
+            display: block;
+            width: 100%;
+            padding: 1rem;
+            background: var(--primary-black);
+            color: var(--primary-white);
+            text-align: center;
+            text-decoration: none;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            transition: all 0.3s;
+            border: 2px solid var(--primary-black);
+            cursor: pointer;
+            font-size: 0.9rem;
+        }
+
+        .inquire-btn:hover {
+            background: var(--primary-white);
+            color: var(--primary-black);
+        }
+
+        /* Modal/Lightbox */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.95);
+            z-index: 2000;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            max-width: 90%;
+            max-height: 90%;
+        }
+
+        .modal-content img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 2rem;
+            right: 2rem;
+            font-size: 3rem;
+            color: var(--primary-white);
+            cursor: pointer;
+            background: none;
+            border: none;
+        }
+
+        /* CTA Section */
+        .cta-section {
+            background: var(--primary-black);
+            color: var(--primary-white);
+            padding: 4rem 5%;
+            text-align: center;
+        }
+
+        .cta-section h2 {
+            font-size: 2.5rem;
+            font-weight: 300;
+            letter-spacing: 4px;
+            margin-bottom: 1rem;
+        }
+
+        .cta-section p {
+            margin-bottom: 2rem;
+            opacity: 0.9;
+            letter-spacing: 2px;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 2rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .cta-btn {
+            padding: 1rem 3rem;
+            text-decoration: none;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            transition: all 0.3s;
+            border: 2px solid var(--primary-white);
+        }
+
+        .cta-btn-primary {
+            background: var(--primary-white);
+            color: var(--primary-black);
+        }
+
+        .cta-btn-primary:hover {
+            background: transparent;
+            color: var(--primary-white);
+        }
+
+        .cta-btn-secondary {
+            background: transparent;
+            color: var(--primary-white);
+        }
+
+        .cta-btn-secondary:hover {
+            background: var(--primary-white);
+            color: var(--primary-black);
+        }
+
+        /* Footer */
+        footer {
+            background: var(--primary-black);
+            color: var(--primary-white);
+            text-align: center;
+            padding: 3rem 5%;
+            border-top: 1px solid var(--gray-medium);
+        }
+
+        footer p {
+            letter-spacing: 2px;
+            opacity: 0.8;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .collection-hero h1 {
+                font-size: 2rem;
+                letter-spacing: 4px;
+            }
+
+            .products-grid {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .nav-links {
+                gap: 1.5rem;
+            }
+
+            .nav-links a {
+                font-size: 0.85rem;
+            }
+
+            .cta-buttons {
+                flex-direction: column;
+                gap: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <div class="container">
+            <a href="index.html" class="logo">PRINCE ORISON</a>
+            <ul class="nav-links">
+                <li><a href="index.html" class="back-link">← Back to Home</a></li>
+                <li><a href="index.html#contact">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Collection Hero -->
+    <section class="collection-hero">
+        <h1>Trousers & Shorts</h1>
+        <p>Tailored bottoms crafted for comfort and sophistication. Each piece is designed with precision fit and premium fabrics, perfect for the modern professional and casual settings alike.</p>
+    </section>
+
+    <!-- Products Grid -->
+    <section class="products-section">
+        <div class="products-grid">
+            <!-- Product 1 -->
+            <div class="product-card">
+                <div class="product-image" onclick="openModal('assets/products/trousers-shorts-1.jpeg')">
+                    <img src="assets/products/trousers-shorts-1.jpeg" alt="Tailored Trousers">
+                </div>
+                <div class="product-info">
+                    <h3 class="product-name">Classic Tailored Trousers</h3>
+                    <p class="product-description">
+                        Perfectly tailored trousers designed for the discerning professional. Crafted with premium fabric and attention to detail, these trousers offer comfort without compromising on style.
+                    </p>
+                    <ul class="product-features">
+                        <li>Premium tailored fabric</li>
+                        <li>Perfect fit and structure</li>
+                        <li>Versatile for business and casual</li>
+                        <li>Modern slim-fit design</li>
+                    </ul>
+                    <a href="https://wa.me/233245099930?text=Hi, I'm interested in the Classic Tailored Trousers" class="inquire-btn" target="_blank">Inquire via WhatsApp</a>
+                </div>
+            </div>
+
+            <!-- Product 2 -->
+            <div class="product-card">
+                <div class="product-image" onclick="openModal('assets/products/trousers-shorts-2.jpeg')">
+                    <img src="assets/products/trousers-shorts-2.jpeg" alt="Contemporary Trousers">
+                </div>
+                <div class="product-info">
+                    <h3 class="product-name">Contemporary Dress Trousers</h3>
+                    <p class="product-description">
+                        Modern dress trousers with refined details and exceptional fit. Ideal for formal occasions, business meetings, or any setting where elegance is essential.
+                    </p>
+                    <ul class="product-features">
+                        <li>Refined contemporary cut</li>
+                        <li>Premium finishing details</li>
+                        <li>Comfortable all-day wear</li>
+                        <li>Pairs perfectly with formal wear</li>
+                    </ul>
+                    <a href="https://wa.me/233245099930?text=Hi, I'm interested in the Contemporary Dress Trousers" class="inquire-btn" target="_blank">Inquire via WhatsApp</a>
+                </div>
+            </div>
+
+            <!-- Product 3 -->
+            <div class="product-card">
+                <div class="product-image" onclick="openModal('assets/products/trousers-shorts-3.jpeg')">
+                    <img src="assets/products/trousers-shorts-3.jpeg" alt="Smart Casual Shorts">
+                </div>
+                <div class="product-info">
+                    <h3 class="product-name">Executive Casual Shorts</h3>
+                    <p class="product-description">
+                        Sophisticated shorts that blend comfort with style. Perfect for warm weather occasions, weekend outings, or relaxed professional environments.
+                    </p>
+                    <ul class="product-features">
+                        <li>Premium casual fabric</li>
+                        <li>Tailored fit and finish</li>
+                        <li>Smart casual versatility</li>
+                        <li>Comfortable breathable design</li>
+                    </ul>
+                    <a href="https://wa.me/233245099930?text=Hi, I'm interested in the Executive Casual Shorts" class="inquire-btn" target="_blank">Inquire via WhatsApp</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <h2>Ready to Order?</h2>
+        <p>Contact us to place your order or schedule a fitting consultation</p>
+        <div class="cta-buttons">
+            <a href="https://wa.me/233245099930" class="cta-btn cta-btn-primary" target="_blank">WhatsApp Us</a>
+            <a href="index.html#collections" class="cta-btn cta-btn-secondary">View Other Collections</a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2026 PRINCE ORISON FASHION HOUSE. ALL RIGHTS RESERVED.</p>
+        <p style="margin-top: 1rem; opacity: 0.6;">DETAILED TO PERFECTION</p>
+    </footer>
+
+    <!-- Image Modal -->
+    <div class="modal" id="imageModal">
+        <button class="modal-close" onclick="closeModal()">&times;</button>
+        <div class="modal-content">
+            <img id="modalImage" src="" alt="Product Image">
+        </div>
+    </div>
+
+    <script>
+        function openModal(imageSrc) {
+            const modal = document.getElementById('imageModal');
+            const modalImage = document.getElementById('modalImage');
+            modalImage.src = imageSrc;
+            modal.classList.add('active');
+        }
+
+        function closeModal() {
+            const modal = document.getElementById('imageModal');
+            modal.classList.remove('active');
+        }
+
+        document.getElementById('imageModal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeModal();
+            }
+        });
+
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                closeModal();
+            }
+        });
+    </script>
+</body>
+</html>
