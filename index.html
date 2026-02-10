@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Prince Orison Fashion House | Detailed to Perfection</title>
+    <title>Prince Orison Fashion House | Where Craftsmanship Meets Elegance</title>
     <style>
         * {
             margin: 0;
@@ -15,12 +15,13 @@
             --primary-black: #000000;
             --primary-white: #FFFFFF;
             --ash: #B8B8B8;
-            --gray-light: #E5E5E5;
+            --gray-light: #F8F8F8;
             --gray-medium: #666666;
+            --gray-dark: #1a1a1a;
         }
 
         body {
-            font-family: 'Helvetica Neue', Arial, sans-serif;
+            font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif;
             color: var(--primary-black);
             background: var(--primary-white);
             line-height: 1.6;
@@ -33,10 +34,16 @@
             top: 0;
             width: 100%;
             background: rgba(255, 255, 255, 0.98);
-            backdrop-filter: blur(10px);
+            backdrop-filter: blur(20px);
             z-index: 1000;
             padding: 1.5rem 5%;
-            border-bottom: 1px solid var(--gray-light);
+            border-bottom: 1px solid rgba(0,0,0,0.05);
+            transition: all 0.3s;
+        }
+
+        nav.scrolled {
+            padding: 1rem 5%;
+            box-shadow: 0 2px 20px rgba(0,0,0,0.05);
         }
 
         nav .container {
@@ -48,29 +55,47 @@
         }
 
         .logo {
-            font-size: 1.5rem;
-            font-weight: 700;
-            letter-spacing: 2px;
+            font-size: 1.3rem;
+            font-weight: 600;
+            letter-spacing: 3px;
             color: var(--primary-black);
+            text-transform: uppercase;
         }
 
         .nav-links {
             display: flex;
             gap: 3rem;
             list-style: none;
+            align-items: center;
         }
 
         .nav-links a {
             text-decoration: none;
             color: var(--primary-black);
-            font-size: 0.95rem;
-            letter-spacing: 1px;
-            transition: color 0.3s;
-            text-transform: uppercase;
+            font-size: 0.9rem;
+            letter-spacing: 0.5px;
+            transition: all 0.3s;
+            font-weight: 500;
         }
 
         .nav-links a:hover {
-            color: var(--ash);
+            color: var(--gray-medium);
+        }
+
+        .nav-cta {
+            background: var(--primary-black);
+            color: var(--primary-white);
+            padding: 0.7rem 1.8rem;
+            border-radius: 50px;
+            font-size: 0.85rem;
+            letter-spacing: 0.5px;
+            transition: all 0.3s;
+        }
+
+        .nav-cta:hover {
+            background: var(--gray-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
         }
 
         .menu-toggle {
@@ -89,103 +114,228 @@
 
         /* Hero Section */
         .hero {
-            height: 100vh;
+            min-height: 100vh;
             display: flex;
             align-items: center;
             justify-content: center;
-            background: url('assets/hero-showcase-2.jpeg') center/cover no-repeat;
+            background: linear-gradient(135deg, var(--gray-light) 0%, var(--primary-white) 100%);
+            padding: 8rem 5% 4rem;
             position: relative;
-            text-align: center;
-            padding: 0 5%;
-            margin-top: 80px;
-        }
-
-        .hero::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: linear-gradient(to right, rgba(0,0,0,0.7), rgba(0,0,0,0.4));
-            z-index: 1;
+            overflow: hidden;
         }
 
         .hero-content {
-            position: relative;
-            z-index: 2;
-            color: var(--primary-white);
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
         }
 
-        .hero-content h1 {
-            font-size: 4rem;
-            font-weight: 300;
-            letter-spacing: 8px;
-            margin-bottom: 1rem;
-            text-transform: uppercase;
-            text-shadow: 2px 2px 8px rgba(0,0,0,0.5);
+        .hero-text {
+            animation: fadeInUp 1s ease-out;
         }
 
-        .hero-content .tagline {
-            font-size: 1.3rem;
-            letter-spacing: 3px;
-            color: var(--primary-white);
-            margin-bottom: 2rem;
-            font-style: italic;
-            text-shadow: 1px 1px 4px rgba(0,0,0,0.5);
-        }
-
-        .hero-content .mission {
-            max-width: 700px;
-            margin: 0 auto 3rem;
-            font-size: 1.1rem;
-            line-height: 1.8;
-            color: var(--primary-white);
-            text-shadow: 1px 1px 4px rgba(0,0,0,0.5);
-        }
-
-        .cta-button {
+        .hero-label {
             display: inline-block;
-            padding: 1rem 3rem;
             background: var(--primary-black);
             color: var(--primary-white);
-            text-decoration: none;
+            padding: 0.5rem 1.2rem;
+            border-radius: 50px;
+            font-size: 0.75rem;
             letter-spacing: 2px;
             text-transform: uppercase;
+            margin-bottom: 1.5rem;
+            font-weight: 600;
+        }
+
+        .hero h1 {
+            font-size: 4rem;
+            font-weight: 300;
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+            letter-spacing: -1px;
+        }
+
+        .hero h1 strong {
+            font-weight: 600;
+            display: block;
+        }
+
+        .hero-tagline {
+            font-size: 1.3rem;
+            color: var(--gray-medium);
+            margin-bottom: 2rem;
+            line-height: 1.6;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 1rem 2.5rem;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 500;
+            letter-spacing: 0.5px;
             transition: all 0.3s;
+            display: inline-block;
+            font-size: 0.95rem;
+        }
+
+        .btn-primary {
+            background: var(--primary-black);
+            color: var(--primary-white);
+        }
+
+        .btn-primary:hover {
+            background: var(--gray-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--primary-black);
             border: 2px solid var(--primary-black);
         }
 
-        .cta-button:hover {
-            background: var(--primary-white);
-            color: var(--primary-black);
+        .btn-secondary:hover {
+            background: var(--primary-black);
+            color: var(--primary-white);
+        }
+
+        .hero-image {
+            position: relative;
+            animation: fadeIn 1.2s ease-out;
+        }
+
+        .hero-image img {
+            width: 100%;
+            height: auto;
+            border-radius: 20px;
+            box-shadow: 0 30px 60px rgba(0,0,0,0.1);
+        }
+
+        /* Stats Section */
+        .stats {
+            background: var(--primary-black);
+            color: var(--primary-white);
+            padding: 3rem 5%;
+        }
+
+        .stats-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 3rem;
+            text-align: center;
+        }
+
+        .stat-item h3 {
+            font-size: 3rem;
+            font-weight: 300;
+            margin-bottom: 0.5rem;
+            letter-spacing: -1px;
+        }
+
+        .stat-item p {
+            font-size: 0.9rem;
+            opacity: 0.8;
+            letter-spacing: 1px;
+            text-transform: uppercase;
         }
 
         /* Section Styles */
         section {
             padding: 6rem 5%;
-            max-width: 1400px;
-            margin: 0 auto;
+        }
+
+        .section-header {
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto 4rem;
+        }
+
+        .section-label {
+            display: inline-block;
+            font-size: 0.75rem;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: var(--gray-medium);
+            margin-bottom: 1rem;
+            font-weight: 600;
         }
 
         .section-title {
             font-size: 3rem;
             font-weight: 300;
-            letter-spacing: 6px;
-            text-align: center;
-            margin-bottom: 1rem;
-            text-transform: uppercase;
+            margin-bottom: 1.5rem;
+            letter-spacing: -1px;
+            line-height: 1.2;
         }
 
-        .section-subtitle {
-            text-align: center;
-            color: var(--gray-medium);
-            margin-bottom: 4rem;
+        .section-description {
             font-size: 1.1rem;
-            letter-spacing: 2px;
+            color: var(--gray-medium);
+            line-height: 1.8;
         }
 
-        /* Collections Grid */
+        /* Features Section */
+        .features {
+            background: var(--gray-light);
+        }
+
+        .features-grid {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 3rem;
+        }
+
+        .feature-card {
+            text-align: center;
+            padding: 2.5rem;
+            background: var(--primary-white);
+            border-radius: 20px;
+            transition: all 0.3s;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.08);
+        }
+
+        .feature-icon {
+            font-size: 3rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .feature-card h3 {
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+            font-weight: 500;
+            letter-spacing: 0.5px;
+        }
+
+        .feature-card p {
+            color: var(--gray-medium);
+            line-height: 1.7;
+            font-size: 0.95rem;
+        }
+
+        /* Collections Section */
+        .collections {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
         .collections-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -195,16 +345,16 @@
         .collection-card {
             position: relative;
             overflow: hidden;
+            border-radius: 20px;
             aspect-ratio: 3/4;
-            background: var(--gray-light);
-            cursor: pointer;
-            transition: transform 0.3s;
+            transition: all 0.5s;
             text-decoration: none;
             display: block;
         }
 
         .collection-card:hover {
             transform: translateY(-10px);
+            box-shadow: 0 30px 60px rgba(0,0,0,0.15);
         }
 
         .collection-card img {
@@ -215,7 +365,7 @@
         }
 
         .collection-card:hover img {
-            transform: scale(1.05);
+            transform: scale(1.08);
         }
 
         .collection-overlay {
@@ -224,89 +374,118 @@
             left: 0;
             right: 0;
             background: linear-gradient(to top, rgba(0,0,0,0.9), transparent);
-            padding: 2rem;
+            padding: 2.5rem;
             color: white;
         }
 
         .collection-title {
             font-size: 1.5rem;
-            letter-spacing: 3px;
+            letter-spacing: 1px;
             margin-bottom: 0.5rem;
-            text-transform: uppercase;
+            font-weight: 500;
         }
 
         .collection-desc {
             font-size: 0.9rem;
-            letter-spacing: 1px;
             opacity: 0.9;
+            line-height: 1.6;
         }
 
         /* About Section */
-        .about-content {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 4rem;
-            align-items: center;
+        .about {
+            background: var(--gray-dark);
+            color: var(--primary-white);
         }
 
-        .about-text h3 {
-            font-size: 2rem;
-            letter-spacing: 3px;
-            margin-bottom: 1.5rem;
-            font-weight: 300;
+        .about .section-label {
+            color: var(--ash);
+        }
+
+        .about-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 5rem;
+            align-items: center;
         }
 
         .about-text p {
             margin-bottom: 1.5rem;
-            line-height: 1.8;
-            color: var(--gray-medium);
+            line-height: 1.9;
+            font-size: 1.05rem;
+            opacity: 0.9;
         }
 
-        .values {
+        .values-grid {
             display: grid;
-            grid-template-columns: repeat(2, 1fr);
+            grid-template-columns: 1fr 1fr;
             gap: 2rem;
-            margin-top: 2rem;
+            margin-top: 3rem;
         }
 
         .value-item {
-            padding: 1.5rem;
-            border: 1px solid var(--gray-light);
+            padding: 2rem;
+            background: rgba(255,255,255,0.05);
+            border-radius: 15px;
+            border: 1px solid rgba(255,255,255,0.1);
         }
 
         .value-item h4 {
-            letter-spacing: 2px;
+            font-size: 1.1rem;
             margin-bottom: 0.5rem;
+            font-weight: 500;
+            letter-spacing: 0.5px;
         }
 
         .value-item p {
             font-size: 0.9rem;
-            color: var(--gray-medium);
+            opacity: 0.7;
+            line-height: 1.6;
+        }
+
+        /* CTA Section */
+        .cta-section {
+            background: var(--gray-light);
+            text-align: center;
+        }
+
+        .cta-content {
+            max-width: 700px;
+            margin: 0 auto;
         }
 
         /* Contact Section */
-        .contact-content {
+        .contact {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .contact-grid {
             display: grid;
-            grid-template-columns: 1fr 1fr;
+            grid-template-columns: 1fr 1.5fr;
             gap: 4rem;
         }
 
         .contact-info {
             display: flex;
             flex-direction: column;
-            gap: 2rem;
+            gap: 2.5rem;
         }
 
         .info-block h4 {
+            font-size: 1rem;
             letter-spacing: 2px;
-            margin-bottom: 1rem;
             text-transform: uppercase;
+            margin-bottom: 1rem;
+            font-weight: 600;
         }
 
         .info-block p, .info-block a {
             color: var(--gray-medium);
             text-decoration: none;
             line-height: 1.8;
+            transition: color 0.3s;
         }
 
         .info-block a:hover {
@@ -315,14 +494,14 @@
 
         .social-links {
             display: flex;
-            gap: 1.5rem;
+            gap: 1rem;
             margin-top: 1rem;
         }
 
         .social-links a {
-            display: inline-block;
             width: 45px;
             height: 45px;
+            border-radius: 50%;
             border: 1px solid var(--gray-medium);
             display: flex;
             align-items: center;
@@ -330,66 +509,81 @@
             transition: all 0.3s;
             text-decoration: none;
             color: var(--gray-medium);
+            font-weight: 600;
+            font-size: 0.85rem;
         }
 
         .social-links a:hover {
             background: var(--primary-black);
             border-color: var(--primary-black);
             color: var(--primary-white);
+            transform: translateY(-3px);
         }
 
         .contact-form {
-            display: flex;
-            flex-direction: column;
-            gap: 1.5rem;
+            background: var(--gray-light);
+            padding: 3rem;
+            border-radius: 20px;
         }
 
         .form-group {
-            display: flex;
-            flex-direction: column;
+            margin-bottom: 1.5rem;
         }
 
         .form-group label {
+            display: block;
             margin-bottom: 0.5rem;
+            font-size: 0.85rem;
             letter-spacing: 1px;
             text-transform: uppercase;
-            font-size: 0.85rem;
+            font-weight: 600;
         }
 
         .form-group input,
-        .form-group textarea {
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
             padding: 1rem;
-            border: 1px solid var(--gray-light);
+            border: 1px solid rgba(0,0,0,0.1);
             background: var(--primary-white);
+            border-radius: 10px;
             font-family: inherit;
-            transition: border-color 0.3s;
+            font-size: 0.95rem;
+            transition: all 0.3s;
         }
 
         .form-group input:focus,
-        .form-group textarea:focus {
+        .form-group textarea:focus,
+        .form-group select:focus {
             outline: none;
             border-color: var(--primary-black);
+            box-shadow: 0 0 0 3px rgba(0,0,0,0.05);
         }
 
         .form-group textarea {
             resize: vertical;
-            min-height: 150px;
+            min-height: 120px;
         }
 
         .submit-btn {
-            padding: 1rem 2rem;
+            width: 100%;
+            padding: 1.2rem;
             background: var(--primary-black);
             color: var(--primary-white);
-            border: 2px solid var(--primary-black);
+            border: none;
+            border-radius: 50px;
             cursor: pointer;
-            letter-spacing: 2px;
+            font-size: 0.95rem;
+            letter-spacing: 1px;
             text-transform: uppercase;
+            font-weight: 600;
             transition: all 0.3s;
         }
 
         .submit-btn:hover {
-            background: var(--primary-white);
-            color: var(--primary-black);
+            background: var(--gray-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
         }
 
         /* Footer */
@@ -401,70 +595,74 @@
         }
 
         footer p {
-            letter-spacing: 2px;
-            opacity: 0.8;
+            opacity: 0.7;
+            font-size: 0.9rem;
+            letter-spacing: 1px;
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
         }
 
         /* Responsive */
-        @media (max-width: 768px) {
-            .menu-toggle {
-                display: flex;
+        @media (max-width: 968px) {
+            .hero-content,
+            .about-content,
+            .contact-grid {
+                grid-template-columns: 1fr;
+                gap: 3rem;
             }
 
-            .nav-links {
-                position: fixed;
-                left: -100%;
-                top: 80px;
-                flex-direction: column;
-                background: var(--primary-white);
-                width: 100%;
-                padding: 2rem;
-                transition: 0.3s;
-                border-top: 1px solid var(--gray-light);
-            }
-
-            .nav-links.active {
-                left: 0;
-            }
-
-            .hero-content h1 {
+            .hero h1 {
                 font-size: 2.5rem;
-                letter-spacing: 4px;
-            }
-
-            .hero-content .tagline {
-                font-size: 1rem;
             }
 
             .section-title {
                 font-size: 2rem;
-                letter-spacing: 3px;
             }
 
-            .about-content,
-            .contact-content {
+            .values-grid {
                 grid-template-columns: 1fr;
-                gap: 2rem;
             }
 
-            .values {
-                grid-template-columns: 1fr;
+            .nav-links {
+                display: none;
+            }
+
+            .menu-toggle {
+                display: flex;
             }
         }
     </style>
 </head>
 <body>
     <!-- Navigation -->
-    <nav>
+    <nav id="mainNav">
         <div class="container">
             <div class="logo">PRINCE ORISON</div>
-            <ul class="nav-links" id="navLinks">
-                <li><a href="#home">Home</a></li>
+            <ul class="nav-links">
                 <li><a href="#collections">Collections</a></li>
                 <li><a href="#about">About</a></li>
-                <li><a href="#contact">Contact</a></li>
+                <li><a href="#contact" class="nav-cta">Get in Touch</a></li>
             </ul>
-            <div class="menu-toggle" id="menuToggle">
+            <div class="menu-toggle">
                 <span></span>
                 <span></span>
                 <span></span>
@@ -473,103 +671,190 @@
     </nav>
 
     <!-- Hero Section -->
-    <section class="hero" id="home">
+    <section class="hero">
         <div class="hero-content">
-            <h1>Prince Orison</h1>
-            <p class="tagline">Detailed to Perfection</p>
-            <p class="mission">
-                Creating refined, contemporary African fashion that blends craftsmanship, structure, and timeless elegance for the modern individual.
+            <div class="hero-text">
+                <span class="hero-label">Detailed to Perfection</span>
+                <h1>
+                    Where Craftsmanship
+                    <strong>Meets Elegance</strong>
+                </h1>
+                <p class="hero-tagline">
+                    Creating refined, contemporary African fashion that blends structure, craftsmanship, and timeless elegance for the modern individual.
+                </p>
+                <div class="hero-buttons">
+                    <a href="#collections" class="btn btn-primary">Explore Collections</a>
+                    <a href="#contact" class="btn btn-secondary">Schedule Consultation</a>
+                </div>
+            </div>
+            <div class="hero-image">
+                <img src="assets/hero-showcase.png" alt="Prince Orison Fashion">
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section class="stats">
+        <div class="stats-container">
+            <div class="stat-item">
+                <h3>10+</h3>
+                <p>Years Experience</p>
+            </div>
+            <div class="stat-item">
+                <h3>500+</h3>
+                <p>Happy Clients</p>
+            </div>
+            <div class="stat-item">
+                <h3>100%</h3>
+                <p>Made in Ghana</p>
+            </div>
+            <div class="stat-item">
+                <h3>4</h3>
+                <p>Premium Collections</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features">
+        <div class="section-header">
+            <span class="section-label">Why Choose Us</span>
+            <h2 class="section-title">What Makes Us Different</h2>
+            <p class="section-description">
+                We don't chase trends; we create timeless pieces that speak to quality, exclusivity, and intention.
             </p>
-            <a href="#collections" class="cta-button">Explore Collections</a>
+        </div>
+        <div class="features-grid">
+            <div class="feature-card">
+                <div class="feature-icon">✂️</div>
+                <h3>Masterful Craftsmanship</h3>
+                <p>Every stitch tells a story of dedication and precision. Each piece is crafted with meticulous attention to detail.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">📐</div>
+                <h3>Perfect Structure</h3>
+                <p>Tailored to perfection for the modern silhouette. We prioritize fit and structure in every design.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">⏳</div>
+                <h3>Timeless Design</h3>
+                <p>Fashion that transcends seasonal trends. Our pieces remain elegant and relevant for years to come.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">💎</div>
+                <h3>Exclusive Pieces</h3>
+                <p>Limited production, maximum impact. Quality over volume, always. Each piece feels exclusive and intentional.</p>
+            </div>
         </div>
     </section>
 
     <!-- Collections Section -->
     <section id="collections">
-        <h2 class="section-title">Collections</h2>
-        <p class="section-subtitle">Curated pieces for the discerning individual</p>
-        
-<div class="collections-grid">
-    <a href="kaftan-agbada.html" class="collection-card">
-        <img src="assets/products/kaftan-agbada-1.jpeg" alt="Kaftan & Agbada">
-        <div class="collection-overlay">
-            <h3 class="collection-title">Kaftan & Agbada</h3>
-            <p class="collection-desc">Structured 3-piece sets combining traditional elegance with modern tailoring</p>
-        </div>
-    </a>
+        <div class="collections">
+            <div class="section-header">
+                <span class="section-label">Our Collections</span>
+                <h2 class="section-title">Curated for the Discerning Individual</h2>
+                <p class="section-description">
+                    From structured agbadas to contemporary casual wear, each collection embodies our commitment to excellence.
+                </p>
+            </div>
+            <div class="collections-grid">
+                <a href="kaftan-agbada.html" class="collection-card">
+                    <img src="assets/products/kaftan-agbada-1.jpeg" alt="Kaftan & Agbada">
+                    <div class="collection-overlay">
+                        <h3 class="collection-title">Kaftan & Agbada</h3>
+                        <p class="collection-desc">Structured 3-piece sets combining traditional elegance with modern tailoring</p>
+                    </div>
+                </a>
 
-    <a href="shirts-casual.html" class="collection-card">
-        <img src="assets/products/shirts-casual-1.jpeg" alt="Shirts & Casual Kaftan Tops">
-        <div class="collection-overlay">
-            <h3 class="collection-title">Shirts & Tops</h3>
-            <p class="collection-desc">Contemporary casual wear with premium finishing and perfect fit</p>
-        </div>
-    </a>
+                <a href="shirts-casual.html" class="collection-card">
+                    <img src="assets/products/shirts & casual Kaftan tops.jpeg" alt="Shirts & Casual">
+                    <div class="collection-overlay">
+                        <h3 class="collection-title">Shirts & Casual</h3>
+                        <p class="collection-desc">Contemporary casual wear with premium finishing and perfect fit</p>
+                    </div>
+                </a>
 
-    <a href="trousers-shorts.html" class="collection-card">
-        <img src="assets/products/Trousers & Shorts.jpeg" alt="Trousers & Shorts">
-        <div class="collection-overlay">
-            <h3 class="collection-title">Trousers & Shorts</h3>
-            <p class="collection-desc">Tailored bottoms crafted for comfort and sophistication</p>
-        </div>
-    </a>
+                <a href="trousers-shorts.html" class="collection-card">
+                    <img src="assets/products/Trousers & Shorts.jpeg" alt="Trousers & Shorts">
+                    <div class="collection-overlay">
+                        <h3 class="collection-title">Trousers & Shorts</h3>
+                        <p class="collection-desc">Tailored bottoms crafted for comfort and sophistication</p>
+                    </div>
+                </a>
 
-    <a href="womens-collection.html" class="collection-card">
-        <img src="assets/products/Women's Ready-to-Wear collection.jpeg" alt="Women's Ready-to-Wear">
-        <div class="collection-overlay">
-            <h3 class="collection-title">Women's Collection</h3>
-            <p class="collection-desc">Elegant ready-to-wear pieces celebrating feminine strength and style</p>
+                <a href="womens-collection.html" class="collection-card">
+                    <img src="assets/products/Women's Ready-to-Wear collection.jpeg" alt="Women's Collection">
+                    <div class="collection-overlay">
+                        <h3 class="collection-title">Women's Collection</h3>
+                        <p class="collection-desc">Elegant ready-to-wear pieces celebrating feminine strength and style</p>
+                    </div>
+                </a>
+            </div>
         </div>
-    </a>
-</div>
     </section>
 
     <!-- About Section -->
-    <section id="about">
-        <h2 class="section-title">About</h2>
-        <p class="section-subtitle">The Art of Refined African Fashion</p>
-        
+    <section id="about" class="about">
         <div class="about-content">
+            <div>
+                <span class="section-label">Our Story</span>
+                <h2 class="section-title">The Art of Refined African Fashion</h2>
+            </div>
             <div class="about-text">
-                <h3>Our Story</h3>
                 <p>
                     Prince Orison Fashion House stands at the intersection of African heritage and contemporary design. We create fashion that honors tradition while embracing modernity—each piece meticulously crafted to elevate your presence.
                 </p>
                 <p>
-                    Our focus on structure, fit, and premium finishing sets us apart. We don't chase trends; we create timeless pieces that speak to quality, exclusivity, and intention. From the boardroom to ceremonial occasions, Prince Orison designs are made for those who understand that true style is eternal.
+                    Our focus on structure, fit, and premium finishing sets us apart. From the boardroom to ceremonial occasions, Prince Orison designs are made for those who understand that true style is eternal.
                 </p>
                 <p>
                     Located in Accra, Ghana, we serve entrepreneurs, professionals, creatives, and executives—individuals who value craftsmanship and refuse to compromise on quality.
                 </p>
+                <div class="values-grid">
+                    <div class="value-item">
+                        <h4>Craftsmanship</h4>
+                        <p>Every stitch tells a story of dedication</p>
+                    </div>
+                    <div class="value-item">
+                        <h4>Structure</h4>
+                        <p>Tailored to perfection</p>
+                    </div>
+                    <div class="value-item">
+                        <h4>Timelessness</h4>
+                        <p>Designs that transcend trends</p>
+                    </div>
+                    <div class="value-item">
+                        <h4>Exclusivity</h4>
+                        <p>Limited pieces, maximum impact</p>
+                    </div>
+                </div>
             </div>
+        </div>
+    </section>
 
-            <div class="values">
-                <div class="value-item">
-                    <h4>Craftsmanship</h4>
-                    <p>Every stitch tells a story of dedication and precision</p>
-                </div>
-                <div class="value-item">
-                    <h4>Structure</h4>
-                    <p>Tailored to perfection for the modern silhouette</p>
-                </div>
-                <div class="value-item">
-                    <h4>Timelessness</h4>
-                    <p>Designs that transcend seasonal trends</p>
-                </div>
-                <div class="value-item">
-                    <h4>Exclusivity</h4>
-                    <p>Limited pieces, maximum impact</p>
-                </div>
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <div class="cta-content">
+            <span class="section-label">Ready to Elevate Your Style?</span>
+            <h2 class="section-title">Let's Create Something Exceptional</h2>
+            <p class="section-description">
+                Schedule a consultation or visit our showroom in Accra to experience the Prince Orison difference.
+            </p>
+            <div class="hero-buttons" style="justify-content: center; margin-top: 2rem;">
+                <a href="https://wa.me/233245099930" class="btn btn-primary">WhatsApp Us</a>
+                <a href="#contact" class="btn btn-secondary">Visit Showroom</a>
             </div>
         </div>
     </section>
 
     <!-- Contact Section -->
-    <section id="contact">
-        <h2 class="section-title">Contact</h2>
-        <p class="section-subtitle">Let's create something exceptional together</p>
-        
-        <div class="contact-content">
+    <section id="contact" class="contact">
+        <div class="section-header">
+            <span class="section-label">Get in Touch</span>
+            <h2 class="section-title">Start Your Journey</h2>
+        </div>
+        <div class="contact-grid">
             <div class="contact-info">
                 <div class="info-block">
                     <h4>Visit Us</h4>
@@ -578,16 +863,16 @@
                         Accra, Ghana<br>
                         GPS: GE-370-8751
                     </p>
-                    <p style="margin-top: 1rem; font-style: italic;">
-                        Find us on Maps / Uber / Bolt / Yango: "Prince Orison"
+                    <p style="margin-top: 1rem; font-style: italic; font-size: 0.9rem;">
+                        Find us: "Prince Orison" on Maps / Uber / Bolt / Yango
                     </p>
                 </div>
 
                 <div class="info-block">
-                    <h4>Get in Touch</h4>
+                    <h4>Contact</h4>
                     <p>
                         Email: <a href="mailto:princeorison1@gmail.com">princeorison1@gmail.com</a><br>
-                        Phone/WhatsApp: <a href="tel:+233245099930">+233 24 509 9930</a>
+                        Phone: <a href="tel:+233245099930">+233 24 509 9930</a>
                     </p>
                 </div>
 
@@ -603,76 +888,33 @@
 
             <form class="contact-form" id="contactForm">
                 <div class="form-group">
-                    <label for="name">Name</label>
+                    <label for="name">Full Name *</label>
                     <input type="text" id="name" name="name" required>
                 </div>
                 <div class="form-group">
-                    <label for="email">Email</label>
+                    <label for="email">Email Address *</label>
                     <input type="email" id="email" name="email" required>
                 </div>
                 <div class="form-group">
-                    <label for="message">Message</label>
+                    <label for="phone">Phone Number</label>
+                    <input type="tel" id="phone" name="phone">
+                </div>
+                <div class="form-group">
+                    <label for="interest">I'm Interested In *</label>
+                    <select id="interest" name="interest" required>
+                        <option value="">Select Collection</option>
+                        <option value="kaftan">Kaftan & Agbada</option>
+                        <option value="shirts">Shirts & Casual</option>
+                        <option value="trousers">Trousers & Shorts</option>
+                        <option value="womens">Women's Collection</option>
+                        <option value="custom">Custom Design</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="message">Your Message *</label>
                     <textarea id="message" name="message" required></textarea>
                 </div>
                 <button type="submit" class="submit-btn">Send Message</button>
             </form>
         </div>
-    </section>
-
-    <!-- Footer -->
-    <footer>
-        <p>&copy; 2026 PRINCE ORISON FASHION HOUSE. ALL RIGHTS RESERVED.</p>
-        <p style="margin-top: 1rem; opacity: 0.6;">DETAILED TO PERFECTION</p>
-    </footer>
-
-    <script>
-        // Mobile menu toggle
-        const menuToggle = document.getElementById('menuToggle');
-        const navLinks = document.getElementById('navLinks');
-
-        menuToggle.addEventListener('click', () => {
-            navLinks.classList.toggle('active');
-        });
-
-        // Close menu when clicking on a link
-        document.querySelectorAll('.nav-links a').forEach(link => {
-            link.addEventListener('click', () => {
-                navLinks.classList.remove('active');
-            });
-        });
-
-        // Smooth scrolling
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    target.scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'start'
-                    });
-                }
-            });
-        });
-
-        // Form submission
-        document.getElementById('contactForm').addEventListener('submit', (e) => {
-            e.preventDefault();
-            alert('Thank you for your message! We will get back to you soon.');
-            e.target.reset();
-        });
-
-        // Navbar background on scroll
-        window.addEventListener('scroll', () => {
-            const nav = document.querySelector('nav');
-            if (window.scrollY > 50) {
-                nav.style.background = 'rgba(255, 255, 255, 0.98)';
-                nav.style.boxShadow = '0 2px 10px rgba(0,0,0,0.1)';
-            } else {
-                nav.style.background = 'rgba(255, 255, 255, 0.98)';
-                nav.style.boxShadow = 'none';
-            }
-        });
-    </script>
-</body>
-</html>
+    </section
