@@ -113,7 +113,7 @@
 
         .products-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmin(350px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
             gap: 3rem;
         }
 
@@ -215,7 +215,6 @@
             z-index: 2000;
             align-items: center;
             justify-content: center;
-            padding: 2rem;
         }
 
         .modal.active {
@@ -223,136 +222,25 @@
         }
 
         .modal-content {
-            position: relative;
-            max-width: 90vw;
-            max-height: 90vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            overflow: auto;
-        }
-
-        .modal-image-container {
-            position: relative;
-            transition: transform 0.3s ease;
-            transform-origin: center center;
+            max-width: 90%;
+            max-height: 90%;
         }
 
         .modal-content img {
-            max-width: 100%;
-            max-height: 90vh;
+            width: 100%;
+            height: 100%;
             object-fit: contain;
-            border-radius: 10px;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.5);
-            cursor: zoom-in;
-        }
-
-        .modal-content img.zoomed {
-            cursor: zoom-out;
-            max-width: none;
-            max-height: none;
         }
 
         .modal-close {
-            position: fixed;
+            position: absolute;
             top: 2rem;
             right: 2rem;
             font-size: 3rem;
             color: var(--primary-white);
             cursor: pointer;
-            background: rgba(0,0,0,0.5);
+            background: none;
             border: none;
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: all 0.3s;
-            z-index: 2001;
-        }
-
-        .modal-close:hover {
-            background: rgba(0,0,0,0.8);
-            transform: scale(1.1);
-        }
-
-        /* Navigation Arrows */
-        .modal-nav {
-            position: fixed;
-            top: 50%;
-            transform: translateY(-50%);
-            background: rgba(0,0,0,0.5);
-            border: none;
-            color: var(--primary-white);
-            font-size: 2rem;
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: all 0.3s;
-            z-index: 2001;
-        }
-
-        .modal-nav:hover {
-            background: rgba(0,0,0,0.8);
-            transform: translateY(-50%) scale(1.1);
-        }
-
-        .modal-nav-prev {
-            left: 2rem;
-        }
-
-        .modal-nav-next {
-            right: 2rem;
-        }
-
-        /* Zoom Controls */
-        .zoom-controls {
-            position: fixed;
-            bottom: 2rem;
-            left: 50%;
-            transform: translateX(-50%);
-            display: flex;
-            gap: 1rem;
-            z-index: 2001;
-        }
-
-        .zoom-btn {
-            background: rgba(0,0,0,0.5);
-            border: none;
-            color: var(--primary-white);
-            font-size: 1.5rem;
-            width: 45px;
-            height: 45px;
-            border-radius: 50%;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: all 0.3s;
-        }
-
-        .zoom-btn:hover {
-            background: rgba(0,0,0,0.8);
-            transform: scale(1.1);
-        }
-
-        .image-counter {
-            position: fixed;
-            top: 2rem;
-            left: 50%;
-            transform: translateX(-50%);
-            background: rgba(0,0,0,0.5);
-            color: var(--primary-white);
-            padding: 0.5rem 1.5rem;
-            border-radius: 20px;
-            font-size: 0.9rem;
-            letter-spacing: 2px;
-            z-index: 2001;
         }
 
         /* CTA Section */
@@ -450,30 +338,6 @@
                 flex-direction: column;
                 gap: 1rem;
             }
-
-            .modal-nav {
-                width: 40px;
-                height: 40px;
-                font-size: 1.5rem;
-            }
-
-            .modal-nav-prev {
-                left: 1rem;
-            }
-
-            .modal-nav-next {
-                right: 1rem;
-            }
-
-            .zoom-controls {
-                bottom: 1rem;
-            }
-
-            .zoom-btn {
-                width: 40px;
-                height: 40px;
-                font-size: 1.2rem;
-            }
         }
     </style>
 </head>
@@ -500,8 +364,8 @@
         <div class="products-grid">
             <!-- Product 1 -->
             <div class="product-card">
-                <div class="product-image" onclick="openModal(0)">
-                    <img src="assets/products/shirts-casual-1.jpeg" alt="Black Kaftan Top">
+                <div class="product-image" onclick="openModal('assets/products/shirts-casual-1.jpg')">
+                    <img src="assets/products/shirts-casual-1.jpg" alt="Black Kaftan Top">
                 </div>
                 <div class="product-info">
                     <h3 class="product-name">Classic Black Kaftan</h3>
@@ -520,13 +384,13 @@
 
             <!-- Product 2 -->
             <div class="product-card">
-                <div class="product-image" onclick="openModal(1)">
-                    <img src="assets/products/shirts-casual-5.jpeg" alt="Colorblock Kaftan">
+                <div class="product-image" onclick="openModal('assets/products/shirts-casual-2.jpg')">
+                    <img src="assets/products/shirts-casual-2.jpg" alt="Colorblock Kaftan">
                 </div>
                 <div class="product-info">
-                    <h3 class="product-name">Modern All-White Kaftan</h3>
+                    <h3 class="product-name">Modern Colorblock Kaftan</h3>
                     <p class="product-description">
-                        Bold white kaftan design. A contemporary statement piece that combines sporty aesthetics with traditional kaftan comfort for the modern individual.
+                        Bold white and black colorblock kaftan design. A contemporary statement piece that combines sporty aesthetics with traditional kaftan comfort for the modern individual.
                     </p>
                     <ul class="product-features">
                         <li>Striking colorblock design</li>
@@ -540,13 +404,13 @@
 
             <!-- Product 3 -->
             <div class="product-card">
-                <div class="product-image" onclick="openModal(2)">
-                    <img src="assets/products/shirts-casual-3.jpeg" alt="Black Striped Kaftan">
+                <div class="product-image" onclick="openModal('assets/products/shirts-casual-3.jpg')">
+                    <img src="assets/products/shirts-casual-3.jpg" alt="Black Striped Kaftan">
                 </div>
                 <div class="product-info">
                     <h3 class="product-name">Heritage Striped Kaftan</h3>
                     <p class="product-description">
-                        Black kaftan featuring multi-colored striped embroidery detail. Where tradition meets modernity, perfect for cultural events, casual gatherings, or making a subtle statement.
+                        Black kaftan featuring multi-colored striped embroidery detail. Where tradition meets modernity—perfect for cultural events, casual gatherings, or making a subtle statement.
                     </p>
                     <ul class="product-features">
                         <li>Black premium base fabric</li>
@@ -560,13 +424,13 @@
 
             <!-- Product 4 -->
             <div class="product-card">
-                <div class="product-image" onclick="openModal(3)">
-                    <img src="assets/products/shirts-casual-4.jpeg" alt="Green Polo Set">
+                <div class="product-image" onclick="openModal('assets/products/shirts-casual-4.jpg')">
+                    <img src="assets/products/shirts-casual-4.jpg" alt="Green Polo Set">
                 </div>
                 <div class="product-info">
                     <h3 class="product-name">Executive Polo Set</h3>
                     <p class="product-description">
-                        Classic green polo shirt with matching trousers. Casual sophistication for the professional, ideal for business casual settings, weekend outings, or relaxed elegance.
+                        Classic green polo shirt with matching trousers. Casual sophistication for the professional—ideal for business casual settings, weekend outings, or relaxed elegance.
                     </p>
                     <ul class="product-features">
                         <li>Premium polo shirt</li>
@@ -599,209 +463,33 @@
     <!-- Image Modal -->
     <div class="modal" id="imageModal">
         <button class="modal-close" onclick="closeModal()">&times;</button>
-        <button class="modal-nav modal-nav-prev" onclick="previousImage()">‹</button>
-        <button class="modal-nav modal-nav-next" onclick="nextImage()">›</button>
-        <div class="image-counter" id="imageCounter">1 / 4</div>
-        <div class="modal-content" id="modalContent">
-            <div class="modal-image-container" id="imageContainer">
-                <img id="modalImage" src="" alt="Product Image" onclick="toggleZoom()">
-            </div>
-        </div>
-        <div class="zoom-controls">
-            <button class="zoom-btn" onclick="zoomOut()" title="Zoom Out">−</button>
-            <button class="zoom-btn" onclick="resetZoom()" title="Reset Zoom">⟲</button>
-            <button class="zoom-btn" onclick="zoomIn()" title="Zoom In">+</button>
+        <div class="modal-content">
+            <img id="modalImage" src="" alt="Product Image">
         </div>
     </div>
 
     <script>
-        // Image gallery data
-        const images = [
-            'assets/products/shirts-casual-1.jpeg',
-            'assets/products/shirts-casual-5.jpeg',
-            'assets/products/shirts-casual-3.jpeg',
-            'assets/products/shirts-casual-4.jpeg'
-        ];
-
-        let currentImageIndex = 0;
-        let currentZoom = 1;
-        let isDragging = false;
-        let startX, startY, scrollLeft, scrollTop;
-
-        function openModal(index) {
-            currentImageIndex = index;
-            currentZoom = 1;
+        function openModal(imageSrc) {
             const modal = document.getElementById('imageModal');
             const modalImage = document.getElementById('modalImage');
-            const imageContainer = document.getElementById('imageContainer');
-            
-            modalImage.src = images[currentImageIndex];
-            modalImage.classList.remove('zoomed');
-            imageContainer.style.transform = 'scale(1)';
-            
-            updateCounter();
+            modalImage.src = imageSrc;
             modal.classList.add('active');
-            document.body.style.overflow = 'hidden';
         }
 
         function closeModal() {
             const modal = document.getElementById('imageModal');
             modal.classList.remove('active');
-            document.body.style.overflow = 'auto';
-            resetZoom();
         }
 
-        function previousImage() {
-            currentImageIndex = (currentImageIndex - 1 + images.length) % images.length;
-            updateImage();
-        }
-
-        function nextImage() {
-            currentImageIndex = (currentImageIndex + 1) % images.length;
-            updateImage();
-        }
-
-        function updateImage() {
-            const modalImage = document.getElementById('modalImage');
-            modalImage.src = images[currentImageIndex];
-            updateCounter();
-            resetZoom();
-        }
-
-        function updateCounter() {
-            const counter = document.getElementById('imageCounter');
-            counter.textContent = `${currentImageIndex + 1} / ${images.length}`;
-        }
-
-        function zoomIn() {
-            currentZoom = Math.min(currentZoom + 0.25, 3);
-            applyZoom();
-        }
-
-        function zoomOut() {
-            currentZoom = Math.max(currentZoom - 0.25, 0.5);
-            applyZoom();
-        }
-
-        function resetZoom() {
-            currentZoom = 1;
-            const imageContainer = document.getElementById('imageContainer');
-            const modalImage = document.getElementById('modalImage');
-            const modalContent = document.getElementById('modalContent');
-            
-            imageContainer.style.transform = 'scale(1)';
-            modalImage.classList.remove('zoomed');
-            modalContent.scrollLeft = 0;
-            modalContent.scrollTop = 0;
-        }
-
-        function toggleZoom() {
-            if (currentZoom === 1) {
-                currentZoom = 2;
-            } else {
-                currentZoom = 1;
-            }
-            applyZoom();
-        }
-
-        function applyZoom() {
-            const imageContainer = document.getElementById('imageContainer');
-            const modalImage = document.getElementById('modalImage');
-            
-            imageContainer.style.transform = `scale(${currentZoom})`;
-            
-            if (currentZoom > 1) {
-                modalImage.classList.add('zoomed');
-            } else {
-                modalImage.classList.remove('zoomed');
-            }
-        }
-
-        // Keyboard navigation
-        document.addEventListener('keydown', function(e) {
-            const modal = document.getElementById('imageModal');
-            if (!modal.classList.contains('active')) return;
-            
-            switch(e.key) {
-                case 'Escape':
-                    closeModal();
-                    break;
-                case 'ArrowLeft':
-                    previousImage();
-                    break;
-                case 'ArrowRight':
-                    nextImage();
-                    break;
-                case '+':
-                case '=':
-                    zoomIn();
-                    break;
-                case '-':
-                case '_':
-                    zoomOut();
-                    break;
-                case '0':
-                    resetZoom();
-                    break;
-            }
-        });
-
-        // Click outside to close
         document.getElementById('imageModal').addEventListener('click', function(e) {
             if (e.target === this) {
                 closeModal();
             }
         });
 
-        // Drag to pan when zoomed
-        const modalContent = document.getElementById('modalContent');
-        
-        modalContent.addEventListener('mousedown', function(e) {
-            if (currentZoom > 1) {
-                isDragging = true;
-                startX = e.pageX - modalContent.offsetLeft;
-                startY = e.pageY - modalContent.offsetTop;
-                scrollLeft = modalContent.scrollLeft;
-                scrollTop = modalContent.scrollTop;
-                modalContent.style.cursor = 'grabbing';
-            }
-        });
-
-        modalContent.addEventListener('mousemove', function(e) {
-            if (!isDragging) return;
-            e.preventDefault();
-            const x = e.pageX - modalContent.offsetLeft;
-            const y = e.pageY - modalContent.offsetTop;
-            const walkX = (x - startX) * 2;
-            const walkY = (y - startY) * 2;
-            modalContent.scrollLeft = scrollLeft - walkX;
-            modalContent.scrollTop = scrollTop - walkY;
-        });
-
-        modalContent.addEventListener('mouseup', function() {
-            isDragging = false;
-            modalContent.style.cursor = currentZoom > 1 ? 'grab' : 'default';
-        });
-
-        modalContent.addEventListener('mouseleave', function() {
-            isDragging = false;
-            modalContent.style.cursor = currentZoom > 1 ? 'grab' : 'default';
-        });
-
-        // Touch support for mobile
-        let touchStartX = 0;
-        let touchStartY = 0;
-        
-        modalContent.addEventListener('touchstart', function(e) {
-            if (currentZoom > 1) {
-                touchStartX = e.touches[0].clientX;
-                touchStartY = e.touches[0].clientY;
-            }
-        });
-
-        modalContent.addEventListener('touchmove', function(e) {
-            if (currentZoom > 1) {
-                e.preventDefault();
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                closeModal();
             }
         });
     </script>
