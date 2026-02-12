@@ -203,7 +203,6 @@
             color: var(--primary-black);
         }
 
-
         /* Modal/Lightbox */
         .modal {
             display: none;
@@ -451,6 +450,30 @@
                 flex-direction: column;
                 gap: 1rem;
             }
+
+            .modal-nav {
+                width: 40px;
+                height: 40px;
+                font-size: 1.5rem;
+            }
+
+            .modal-nav-prev {
+                left: 1rem;
+            }
+
+            .modal-nav-next {
+                right: 1rem;
+            }
+
+            .zoom-controls {
+                bottom: 1rem;
+            }
+
+            .zoom-btn {
+                width: 40px;
+                height: 40px;
+                font-size: 1.2rem;
+            }
         }
     </style>
 </head>
@@ -477,7 +500,7 @@
         <div class="products-grid">
             <!-- Product 1 -->
             <div class="product-card">
-                <div class="product-image" onclick="openModal('assets/products/shirts-casual-1.jpeg')">
+                <div class="product-image" onclick="openModal(0)">
                     <img src="assets/products/shirts-casual-1.jpeg" alt="Black Kaftan Top">
                 </div>
                 <div class="product-info">
@@ -497,7 +520,7 @@
 
             <!-- Product 2 -->
             <div class="product-card">
-                <div class="product-image" onclick="openModal('assets/products/shirts-casual-2.jpeg')">
+                <div class="product-image" onclick="openModal(1)">
                     <img src="assets/products/shirts-casual-2.jpeg" alt="Colorblock Kaftan">
                 </div>
                 <div class="product-info">
@@ -517,7 +540,7 @@
 
             <!-- Product 3 -->
             <div class="product-card">
-                <div class="product-image" onclick="openModal('assets/products/shirts-casual-3.jpeg')">
+                <div class="product-image" onclick="openModal(2)">
                     <img src="assets/products/shirts-casual-3.jpeg" alt="Black Striped Kaftan">
                 </div>
                 <div class="product-info">
@@ -537,7 +560,7 @@
 
             <!-- Product 4 -->
             <div class="product-card">
-                <div class="product-image" onclick="openModal('assets/products/shirts-casual-4.jpeg')">
+                <div class="product-image" onclick="openModal(3)">
                     <img src="assets/products/shirts-casual-4.jpeg" alt="Green Polo Set">
                 </div>
                 <div class="product-info">
@@ -576,33 +599,209 @@
     <!-- Image Modal -->
     <div class="modal" id="imageModal">
         <button class="modal-close" onclick="closeModal()">&times;</button>
-        <div class="modal-content">
-            <img id="modalImage" src="" alt="Product Image">
+        <button class="modal-nav modal-nav-prev" onclick="previousImage()">‹</button>
+        <button class="modal-nav modal-nav-next" onclick="nextImage()">›</button>
+        <div class="image-counter" id="imageCounter">1 / 4</div>
+        <div class="modal-content" id="modalContent">
+            <div class="modal-image-container" id="imageContainer">
+                <img id="modalImage" src="" alt="Product Image" onclick="toggleZoom()">
+            </div>
+        </div>
+        <div class="zoom-controls">
+            <button class="zoom-btn" onclick="zoomOut()" title="Zoom Out">−</button>
+            <button class="zoom-btn" onclick="resetZoom()" title="Reset Zoom">⟲</button>
+            <button class="zoom-btn" onclick="zoomIn()" title="Zoom In">+</button>
         </div>
     </div>
 
     <script>
-        function openModal(imageSrc) {
+        // Image gallery data
+        const images = [
+            'assets/products/shirts-casual-1.jpeg',
+            'assets/products/shirts-casual-2.jpeg',
+            'assets/products/shirts-casual-3.jpeg',
+            'assets/products/shirts-casual-4.jpeg'
+        ];
+
+        let currentImageIndex = 0;
+        let currentZoom = 1;
+        let isDragging = false;
+        let startX, startY, scrollLeft, scrollTop;
+
+        function openModal(index) {
+            currentImageIndex = index;
+            currentZoom = 1;
             const modal = document.getElementById('imageModal');
             const modalImage = document.getElementById('modalImage');
-            modalImage.src = imageSrc;
+            const imageContainer = document.getElementById('imageContainer');
+            
+            modalImage.src = images[currentImageIndex];
+            modalImage.classList.remove('zoomed');
+            imageContainer.style.transform = 'scale(1)';
+            
+            updateCounter();
             modal.classList.add('active');
+            document.body.style.overflow = 'hidden';
         }
 
         function closeModal() {
             const modal = document.getElementById('imageModal');
             modal.classList.remove('active');
+            document.body.style.overflow = 'auto';
+            resetZoom();
         }
 
+        function previousImage() {
+            currentImageIndex = (currentImageIndex - 1 + images.length) % images.length;
+            updateImage();
+        }
+
+        function nextImage() {
+            currentImageIndex = (currentImageIndex + 1) % images.length;
+            updateImage();
+        }
+
+        function updateImage() {
+            const modalImage = document.getElementById('modalImage');
+            modalImage.src = images[currentImageIndex];
+            updateCounter();
+            resetZoom();
+        }
+
+        function updateCounter() {
+            const counter = document.getElementById('imageCounter');
+            counter.textContent = `${currentImageIndex + 1} / ${images.length}`;
+        }
+
+        function zoomIn() {
+            currentZoom = Math.min(currentZoom + 0.25, 3);
+            applyZoom();
+        }
+
+        function zoomOut() {
+            currentZoom = Math.max(currentZoom - 0.25, 0.5);
+            applyZoom();
+        }
+
+        function resetZoom() {
+            currentZoom = 1;
+            const imageContainer = document.getElementById('imageContainer');
+            const modalImage = document.getElementById('modalImage');
+            const modalContent = document.getElementById('modalContent');
+            
+            imageContainer.style.transform = 'scale(1)';
+            modalImage.classList.remove('zoomed');
+            modalContent.scrollLeft = 0;
+            modalContent.scrollTop = 0;
+        }
+
+        function toggleZoom() {
+            if (currentZoom === 1) {
+                currentZoom = 2;
+            } else {
+                currentZoom = 1;
+            }
+            applyZoom();
+        }
+
+        function applyZoom() {
+            const imageContainer = document.getElementById('imageContainer');
+            const modalImage = document.getElementById('modalImage');
+            
+            imageContainer.style.transform = `scale(${currentZoom})`;
+            
+            if (currentZoom > 1) {
+                modalImage.classList.add('zoomed');
+            } else {
+                modalImage.classList.remove('zoomed');
+            }
+        }
+
+        // Keyboard navigation
+        document.addEventListener('keydown', function(e) {
+            const modal = document.getElementById('imageModal');
+            if (!modal.classList.contains('active')) return;
+            
+            switch(e.key) {
+                case 'Escape':
+                    closeModal();
+                    break;
+                case 'ArrowLeft':
+                    previousImage();
+                    break;
+                case 'ArrowRight':
+                    nextImage();
+                    break;
+                case '+':
+                case '=':
+                    zoomIn();
+                    break;
+                case '-':
+                case '_':
+                    zoomOut();
+                    break;
+                case '0':
+                    resetZoom();
+                    break;
+            }
+        });
+
+        // Click outside to close
         document.getElementById('imageModal').addEventListener('click', function(e) {
             if (e.target === this) {
                 closeModal();
             }
         });
 
-        document.addEventListener('keydown', function(e) {
-            if (e.key === 'Escape') {
-                closeModal();
+        // Drag to pan when zoomed
+        const modalContent = document.getElementById('modalContent');
+        
+        modalContent.addEventListener('mousedown', function(e) {
+            if (currentZoom > 1) {
+                isDragging = true;
+                startX = e.pageX - modalContent.offsetLeft;
+                startY = e.pageY - modalContent.offsetTop;
+                scrollLeft = modalContent.scrollLeft;
+                scrollTop = modalContent.scrollTop;
+                modalContent.style.cursor = 'grabbing';
+            }
+        });
+
+        modalContent.addEventListener('mousemove', function(e) {
+            if (!isDragging) return;
+            e.preventDefault();
+            const x = e.pageX - modalContent.offsetLeft;
+            const y = e.pageY - modalContent.offsetTop;
+            const walkX = (x - startX) * 2;
+            const walkY = (y - startY) * 2;
+            modalContent.scrollLeft = scrollLeft - walkX;
+            modalContent.scrollTop = scrollTop - walkY;
+        });
+
+        modalContent.addEventListener('mouseup', function() {
+            isDragging = false;
+            modalContent.style.cursor = currentZoom > 1 ? 'grab' : 'default';
+        });
+
+        modalContent.addEventListener('mouseleave', function() {
+            isDragging = false;
+            modalContent.style.cursor = currentZoom > 1 ? 'grab' : 'default';
+        });
+
+        // Touch support for mobile
+        let touchStartX = 0;
+        let touchStartY = 0;
+        
+        modalContent.addEventListener('touchstart', function(e) {
+            if (currentZoom > 1) {
+                touchStartX = e.touches[0].clientX;
+                touchStartY = e.touches[0].clientY;
+            }
+        });
+
+        modalContent.addEventListener('touchmove', function(e) {
+            if (currentZoom > 1) {
+                e.preventDefault();
             }
         });
     </script>
