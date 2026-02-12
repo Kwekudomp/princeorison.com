@@ -224,18 +224,32 @@
 
         .modal-content {
             position: relative;
-            max-width: 90vw;
-            max-height: 90vh;
+            width: 90vw;
+            height: 90vh;
             display: flex;
             align-items: center;
             justify-content: center;
             overflow: auto;
+            cursor: grab;
+        }
+
+        .modal-content.dragging {
+            cursor: grabbing !important;
+        }
+
+        .modal-content.zoomed {
+            cursor: grab;
         }
 
         .modal-image-container {
             position: relative;
             transition: transform 0.3s ease;
             transform-origin: center center;
+            min-width: 100%;
+            min-height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
         .modal-content img {
@@ -634,9 +648,11 @@
             const modal = document.getElementById('imageModal');
             const modalImage = document.getElementById('modalImage');
             const imageContainer = document.getElementById('imageContainer');
+            const modalContent = document.getElementById('modalContent');
             
             modalImage.src = images[currentImageIndex];
             modalImage.classList.remove('zoomed');
+            modalContent.classList.remove('zoomed');
             imageContainer.style.transform = 'scale(1)';
             
             updateCounter();
@@ -691,6 +707,7 @@
             
             imageContainer.style.transform = 'scale(1)';
             modalImage.classList.remove('zoomed');
+            modalContent.classList.remove('zoomed');
             modalContent.scrollLeft = 0;
             modalContent.scrollTop = 0;
         }
@@ -707,13 +724,16 @@
         function applyZoom() {
             const imageContainer = document.getElementById('imageContainer');
             const modalImage = document.getElementById('modalImage');
+            const modalContent = document.getElementById('modalContent');
             
             imageContainer.style.transform = `scale(${currentZoom})`;
             
             if (currentZoom > 1) {
                 modalImage.classList.add('zoomed');
+                modalContent.classList.add('zoomed');
             } else {
                 modalImage.classList.remove('zoomed');
+                modalContent.classList.remove('zoomed');
             }
         }
 
@@ -757,53 +777,71 @@
         const modalContent = document.getElementById('modalContent');
         
         modalContent.addEventListener('mousedown', function(e) {
-            if (currentZoom > 1) {
+            if (currentZoom > 1 && e.target.tagName !== 'BUTTON') {
                 isDragging = true;
-                startX = e.pageX - modalContent.offsetLeft;
-                startY = e.pageY - modalContent.offsetTop;
+                modalContent.classList.add('dragging');
+                startX = e.clientX;
+                startY = e.clientY;
                 scrollLeft = modalContent.scrollLeft;
                 scrollTop = modalContent.scrollTop;
-                modalContent.style.cursor = 'grabbing';
+                e.preventDefault();
             }
         });
 
-        modalContent.addEventListener('mousemove', function(e) {
+        document.addEventListener('mousemove', function(e) {
             if (!isDragging) return;
             e.preventDefault();
-            const x = e.pageX - modalContent.offsetLeft;
-            const y = e.pageY - modalContent.offsetTop;
-            const walkX = (x - startX) * 2;
-            const walkY = (y - startY) * 2;
-            modalContent.scrollLeft = scrollLeft - walkX;
-            modalContent.scrollTop = scrollTop - walkY;
+            
+            const x = e.clientX;
+            const y = e.clientY;
+            const walkX = (startX - x) * 2;
+            const walkY = (startY - y) * 2;
+            
+            modalContent.scrollLeft = scrollLeft + walkX;
+            modalContent.scrollTop = scrollTop + walkY;
         });
 
-        modalContent.addEventListener('mouseup', function() {
-            isDragging = false;
-            modalContent.style.cursor = currentZoom > 1 ? 'grab' : 'default';
+        document.addEventListener('mouseup', function() {
+            if (isDragging) {
+                isDragging = false;
+                modalContent.classList.remove('dragging');
+            }
         });
 
         modalContent.addEventListener('mouseleave', function() {
-            isDragging = false;
-            modalContent.style.cursor = currentZoom > 1 ? 'grab' : 'default';
+            if (isDragging) {
+                isDragging = false;
+                modalContent.classList.remove('dragging');
+            }
         });
 
         // Touch support for mobile
         let touchStartX = 0;
         let touchStartY = 0;
+        let touchScrollLeft = 0;
+        let touchScrollTop = 0;
         
         modalContent.addEventListener('touchstart', function(e) {
             if (currentZoom > 1) {
                 touchStartX = e.touches[0].clientX;
                 touchStartY = e.touches[0].clientY;
+                touchScrollLeft = modalContent.scrollLeft;
+                touchScrollTop = modalContent.scrollTop;
             }
         });
 
         modalContent.addEventListener('touchmove', function(e) {
             if (currentZoom > 1) {
                 e.preventDefault();
+                const touchX = e.touches[0].clientX;
+                const touchY = e.touches[0].clientY;
+                const walkX = (touchStartX - touchX) * 2;
+                const walkY = (touchStartY - touchY) * 2;
+                
+                modalContent.scrollLeft = touchScrollLeft + walkX;
+                modalContent.scrollTop = touchScrollTop + walkY;
             }
-        });
+        }, { passive: false });
     </script>
 </body>
 </html>
