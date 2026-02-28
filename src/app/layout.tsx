@@ -28,6 +28,9 @@ export const metadata: Metadata = {
   openGraph: {
     siteName: "Prince Orison Fashion House",
   },
+  icons: {
+    icon: "/favicon.svg",
+  },
 };
 
 export default function RootLayout({
@@ -38,6 +41,31 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${cormorant.variable} ${inter.variable}`}>
       <body className="antialiased">
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "LocalBusiness",
+              name: "Prince Orison Fashion House",
+              description:
+                "Creating refined, contemporary African fashion. Premium kaftans, agbadas, suits, and custom designs crafted in Accra, Ghana.",
+              address: {
+                "@type": "PostalAddress",
+                streetAddress: "Achimota ABC",
+                addressLocality: "Accra",
+                addressCountry: "GH",
+              },
+              telephone: "+233245099930",
+              email: "princeorison1@gmail.com",
+              url: "https://www.princeorison.com",
+              sameAs: [
+                "https://instagram.com/princeorison",
+                "https://tiktok.com/@princeorison",
+              ],
+            }),
+          }}
+        />
         <Nav />
         {children}
         <Footer />

@@ -16,6 +16,15 @@
   --font-body: var(--font-inter), sans-serif;
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
+::selection {
+  background-color: var(--color-accent);
+  color: white;
+}
+
 body {
   background-color: var(--color-bg-primary);
   color: var(--color-text-primary);
