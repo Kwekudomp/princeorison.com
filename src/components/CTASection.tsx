@@ -23,11 +23,14 @@ export default function CTASection({
 
   return (
     <section
-      className={`py-24 px-[5%] text-center ${
-        isDark ? "bg-dark-section text-white" : "bg-bg-surface"
+      className={`py-24 px-[5%] text-center relative overflow-hidden ${
+        isDark ? "bg-dark-section text-white" : "prismatic-bg"
       }`}
     >
-      <div className="max-w-2xl mx-auto">
+      {/* Light sweep overlay (light variant only) */}
+      {!isDark && <div className="light-sweep absolute inset-0 pointer-events-none" />}
+
+      <div className="max-w-2xl mx-auto relative z-10">
         <p className="text-xs tracking-[3px] uppercase text-accent font-semibold">
           READY TO ELEVATE YOUR STYLE?
         </p>
@@ -47,36 +50,36 @@ export default function CTASection({
         </p>
 
         <div className="flex gap-4 justify-center mt-10 flex-wrap">
-          {/* Primary button */}
+          {/* Primary button — frosted glass gold */}
           {primaryHref.startsWith("http") || primaryHref.startsWith("https") ? (
             <a
               href={primaryHref}
               target="_blank"
               rel="noopener noreferrer"
-              className="bg-accent text-white px-8 py-4 rounded-full font-medium tracking-wide hover:bg-accent-dark hover:-translate-y-0.5 hover:shadow-lg transition-all"
+              className="bg-accent/90 backdrop-blur-sm text-white px-8 py-4 rounded-full font-medium tracking-wide hover:bg-accent hover:-translate-y-0.5 hover:shadow-[0_4px_20px_rgba(201,176,107,0.3)] transition-all"
             >
               {primaryLabel}
             </a>
           ) : (
             <Link
               href={primaryHref}
-              className="bg-accent text-white px-8 py-4 rounded-full font-medium tracking-wide hover:bg-accent-dark hover:-translate-y-0.5 hover:shadow-lg transition-all"
+              className="bg-accent/90 backdrop-blur-sm text-white px-8 py-4 rounded-full font-medium tracking-wide hover:bg-accent hover:-translate-y-0.5 hover:shadow-[0_4px_20px_rgba(201,176,107,0.3)] transition-all"
             >
               {primaryLabel}
             </Link>
           )}
 
-          {/* Secondary button */}
+          {/* Secondary button — glass outline */}
           {secondaryHref.startsWith("http") ||
           secondaryHref.startsWith("https") ? (
             <a
               href={secondaryHref}
               target="_blank"
               rel="noopener noreferrer"
-              className={`border-2 px-8 py-4 rounded-full font-medium tracking-wide transition-all ${
+              className={`glass-btn px-8 py-4 rounded-full font-medium tracking-wide ${
                 isDark
-                  ? "border-white text-white hover:bg-white hover:text-dark-section"
-                  : "border-text-primary text-text-primary hover:bg-text-primary hover:text-white"
+                  ? "text-white border-white/30"
+                  : "text-text-primary"
               }`}
             >
               {secondaryLabel}
@@ -84,10 +87,10 @@ export default function CTASection({
           ) : (
             <Link
               href={secondaryHref}
-              className={`border-2 px-8 py-4 rounded-full font-medium tracking-wide transition-all ${
+              className={`glass-btn px-8 py-4 rounded-full font-medium tracking-wide ${
                 isDark
-                  ? "border-white text-white hover:bg-white hover:text-dark-section"
-                  : "border-text-primary text-text-primary hover:bg-text-primary hover:text-white"
+                  ? "text-white border-white/30"
+                  : "text-text-primary"
               }`}
             >
               {secondaryLabel}
