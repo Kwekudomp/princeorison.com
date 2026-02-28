@@ -20,37 +20,40 @@ export default function CollectionCard({
         href={`/collections/${collection.slug}`}
         className="block group"
       >
-        {/* Card with image */}
-        <div className="relative aspect-[3/4] rounded-[20px] overflow-hidden">
-          {collection.coverImage ? (
-            <>
-              <Image
-                src={collection.coverImage}
-                alt={collection.name}
-                fill
-                className="object-cover transition-transform duration-500 group-hover:scale-105"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
-            </>
-          ) : (
-            <>
-              <div className="absolute inset-0 bg-bg-surface flex items-center justify-center">
-                <span className="text-text-secondary font-display text-2xl">
-                  {collection.name}
-                </span>
-              </div>
-              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
-            </>
-          )}
+        {/* Glass card wrapper */}
+        <div className="glass-card rounded-[20px] p-1.5 transition-all duration-300 hover:shadow-[0_8px_32px_rgba(201,176,107,0.15)]">
+          {/* Card with image */}
+          <div className="relative aspect-[3/4] rounded-[16px] overflow-hidden">
+            {collection.coverImage ? (
+              <>
+                <Image
+                  src={collection.coverImage}
+                  alt={collection.name}
+                  fill
+                  className="object-cover transition-transform duration-500 group-hover:scale-105"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
+              </>
+            ) : (
+              <>
+                <div className="absolute inset-0 bg-gradient-to-br from-glass-white via-bg-surface to-glass-white flex items-center justify-center">
+                  <span className="text-text-secondary font-display text-2xl text-center px-4">
+                    {collection.name}
+                  </span>
+                </div>
+                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
+              </>
+            )}
 
-          {/* Bottom overlay content */}
-          <div className="absolute bottom-0 left-0 right-0 p-6">
-            <h3 className="text-white font-display text-xl font-semibold">
-              {collection.name}
-            </h3>
-            <p className="text-white/70 text-sm mt-1 opacity-0 group-hover:opacity-100 translate-y-2 group-hover:translate-y-0 transition-all duration-300">
-              Explore &rarr;
-            </p>
+            {/* Bottom overlay content */}
+            <div className="absolute bottom-0 left-0 right-0 p-6">
+              <h3 className="text-white font-display text-xl font-semibold">
+                {collection.name}
+              </h3>
+              <p className="text-white/70 text-sm mt-1 opacity-0 group-hover:opacity-100 translate-y-2 group-hover:translate-y-0 transition-all duration-300">
+                Explore &rarr;
+              </p>
+            </div>
           </div>
         </div>
 
