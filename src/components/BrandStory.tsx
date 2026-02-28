@@ -3,10 +3,10 @@ import Link from "next/link";
 
 export default function BrandStory() {
   return (
-    <section className="bg-bg-surface py-24 px-[5%]">
+    <section className="prismatic-bg py-24 px-[5%]">
       <div className="max-w-[1400px] mx-auto grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-        {/* Left side — text */}
-        <div>
+        {/* Left side — frosted glass text panel */}
+        <div className="glass-card rounded-[20px] p-10 md:p-12">
           <p className="text-xs tracking-[3px] uppercase text-accent font-semibold">
             OUR STORY
           </p>
@@ -39,14 +39,14 @@ export default function BrandStory() {
           </Link>
         </div>
 
-        {/* Right side — image */}
-        <div>
+        {/* Right side — glass-framed image */}
+        <div className="glass-frame rounded-[20px] p-2">
           <Image
             src="/images/about/workshop.jpeg"
             alt="Prince Orison workshop in Accra, Ghana"
             width={600}
             height={800}
-            className="rounded-[20px] object-cover shadow-xl"
+            className="rounded-[16px] object-cover w-full"
           />
         </div>
       </div>
