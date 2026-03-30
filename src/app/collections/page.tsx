@@ -1,6 +1,8 @@
 import { Metadata } from "next";
 import CollectionCard from "@/components/CollectionCard";
-import { collections } from "@/data/collections";
+import { collections as staticCollections } from "@/data/collections";
+import { fetchCollections } from "@/lib/collections.service";
+import { adaptCollection } from "@/lib/collections.adapter";
 
 export const metadata: Metadata = {
   title: "Our Collections",
@@ -8,7 +10,21 @@ export const metadata: Metadata = {
     "Browse all categories of premium African fashion from Prince Orison Fashion House. From structured agbadas to contemporary casual wear, explore our complete range.",
 };
 
-export default function CollectionsPage() {
+export default async function CollectionsPage() {
+  let collections = staticCollections;
+
+  if (
+    process.env.NEXT_PUBLIC_SUPABASE_URL &&
+    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
+  ) {
+    try {
+      const rows = await fetchCollections();
+      if (rows.length > 0) collections = rows.map(adaptCollection);
+    } catch {
+      // fall through to static data
+    }
+  }
+
   return (
     <>
       {/* Hero banner */}

@@ -1,12 +1,26 @@
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
 import Link from "next/link";
-import { collections, getCollectionBySlug } from "@/data/collections";
+import { collections as staticCollections, getCollectionBySlug } from "@/data/collections";
+import { fetchCollections, fetchCollectionBySlug } from "@/lib/collections.service";
+import { adaptCollection } from "@/lib/collections.adapter";
 import ProductCard from "@/components/ProductCard";
 import CTASection from "@/components/CTASection";
 
-export function generateStaticParams() {
-  return collections.map((c) => ({ slug: c.slug }));
+const useSupabase =
+  !!process.env.NEXT_PUBLIC_SUPABASE_URL &&
+  !!process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
+
+export async function generateStaticParams() {
+  if (useSupabase) {
+    try {
+      const rows = await fetchCollections();
+      if (rows.length > 0) return rows.map((c) => ({ slug: c.slug }));
+    } catch {
+      // fall through
+    }
+  }
+  return staticCollections.map((c) => ({ slug: c.slug }));
 }
 
 export async function generateMetadata({
@@ -15,19 +29,28 @@ export async function generateMetadata({
   params: Promise<{ slug: string }>;
 }): Promise<Metadata> {
   const { slug } = await params;
-  const collection = getCollectionBySlug(slug);
+  let name = "";
+  let description = "";
 
-  if (!collection) {
-    return {
-      title: "Collection Not Found",
-      description: "The requested collection could not be found.",
-    };
+  if (useSupabase) {
+    try {
+      const row = await fetchCollectionBySlug(slug);
+      if (row) {
+        name = row.name;
+        description = row.hero_description ?? "";
+      }
+    } catch {
+      // fall through
+    }
   }
 
-  return {
-    title: collection.name,
-    description: collection.heroDescription,
-  };
+  if (!name) {
+    const col = getCollectionBySlug(slug);
+    name = col?.name ?? "Collection";
+    description = col?.heroDescription ?? "";
+  }
+
+  return { title: name, description };
 }
 
 export default async function CollectionPage({
@@ -36,11 +59,18 @@ export default async function CollectionPage({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
-  const collection = getCollectionBySlug(slug);
+  let collection = getCollectionBySlug(slug);
 
-  if (!collection) {
-    notFound();
+  if (useSupabase) {
+    try {
+      const row = await fetchCollectionBySlug(slug);
+      if (row) collection = adaptCollection(row);
+    } catch {
+      // fall through to static
+    }
   }
+
+  if (!collection) notFound();
 
   const hasProducts = collection.products.length > 0;
 
@@ -49,13 +79,9 @@ export default async function CollectionPage({
       {/* Breadcrumb */}
       <nav className="pt-28 pb-4 px-[5%]">
         <div className="max-w-[1400px] mx-auto text-sm text-text-secondary">
-          <Link href="/" className="hover:text-accent transition">
-            Home
-          </Link>
+          <Link href="/" className="hover:text-accent transition">Home</Link>
           <span className="text-border-subtle"> / </span>
-          <Link href="/collections" className="hover:text-accent transition">
-            Collections
-          </Link>
+          <Link href="/collections" className="hover:text-accent transition">Collections</Link>
           <span className="text-border-subtle"> / </span>
           <span>{collection.name}</span>
         </div>
@@ -83,10 +109,11 @@ export default async function CollectionPage({
           ) : (
             <div className="text-center py-24">
               <p className="font-display text-3xl font-light text-text-secondary">
-                Coming Soon
+                Bespoke — Enquire to Order
               </p>
               <p className="text-text-secondary mt-4">
-                This collection is being curated. Contact us for inquiries.
+                This collection is made to your exact specifications. Contact us
+                to begin the consultation process.
               </p>
             </div>
           )}
