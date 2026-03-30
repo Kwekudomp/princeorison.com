@@ -35,14 +35,22 @@ export default function CollectionCard({
                 <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
               </>
             ) : (
-              <>
-                <div className="absolute inset-0 bg-gradient-to-br from-glass-white via-bg-surface to-glass-white flex items-center justify-center">
-                  <span className="text-text-secondary font-display text-2xl text-center px-4">
-                    {collection.name}
-                  </span>
-                </div>
-                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
-              </>
+              <div className="absolute inset-0 flex flex-col items-center justify-center bg-[#0d0d0d]"
+                style={{
+                  backgroundImage: `repeating-linear-gradient(45deg, rgba(201,176,107,0.04) 0px, rgba(201,176,107,0.04) 1px, transparent 1px, transparent 12px),
+                    repeating-linear-gradient(-45deg, rgba(201,176,107,0.04) 0px, rgba(201,176,107,0.04) 1px, transparent 1px, transparent 12px)`
+                }}
+              >
+                <span className="text-[10px] tracking-[4px] uppercase text-accent/70 font-semibold mb-3">
+                  Bespoke
+                </span>
+                <span className="font-display text-xl text-white/80 text-center px-6 leading-snug">
+                  {collection.name}
+                </span>
+                <span className="mt-4 text-[10px] tracking-[2px] uppercase text-white/30">
+                  Enquire to Order
+                </span>
+              </div>
             )}
 
             {/* Bottom overlay content */}

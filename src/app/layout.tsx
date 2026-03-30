@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Cormorant_Garamond, Inter } from "next/font/google";
 import Nav from "@/components/Nav";
 import Footer from "@/components/Footer";
+import WhatsAppFAB from "@/components/WhatsAppFAB";
 import "./globals.css";
 
 const cormorant = Cormorant_Garamond({
@@ -69,6 +70,7 @@ export default function RootLayout({
         <Nav />
         {children}
         <Footer />
+        <WhatsAppFAB />
       </body>
     </html>
   );

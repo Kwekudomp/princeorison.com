@@ -16,7 +16,7 @@ export interface Collection {
   products: Product[];
 }
 
-const WHATSAPP_NUMBER = "233245099930";
+export const WHATSAPP_NUMBER = "233245099930";
 
 function whatsappMsg(productName: string): string {
   return `Hi, I'm interested in the ${productName}`;
@@ -89,6 +89,20 @@ export const collections: Collection[] = [
         ],
         images: ["/images/products/kaftan-casual/shirts-casual-4.jpeg"],
         whatsappMessage: whatsappMsg("Executive Polo Set"),
+      },
+      {
+        id: "kaftan-casual-5",
+        name: "All-White Kaftan Set",
+        description:
+          "Clean all-white kaftan and trouser set — effortlessly sharp for travel, events, or everyday elegance.",
+        features: [
+          "Crisp all-white premium fabric",
+          "Matching kaftan top and tailored trousers",
+          "Lightweight and breathable construction",
+          "Versatile from daytime outings to evening occasions",
+        ],
+        images: ["/images/products/kaftan-casual/shirts-casual-5.jpeg"],
+        whatsappMessage: whatsappMsg("All-White Kaftan Set"),
       },
     ],
   },
@@ -295,46 +309,48 @@ export const collections: Collection[] = [
     description: "Casual everyday wear for the modern professional",
     heroDescription:
       "Elevate your off-duty wardrobe with our casual collection. From perfectly tailored trousers to premium shorts, each piece is designed for the modern professional who values comfort without compromising on style.",
-    coverImage: "",
+    coverImage: "/images/products/casual/trousers-shorts-1.jpeg",
     products: [
       {
         id: "casual-1",
-        name: "Tailored Trousers",
+        name: "Orange Event Matching Set",
         description:
-          "Perfectly tailored trousers for the discerning professional who demands both style and comfort. Inquire for details.",
+          "Coordinated short-sleeve shirt and trouser set in bold orange — ideal for group events, outings, and celebrations.",
+        features: [
+          "Matching short-sleeve shirt and tailored trousers",
+          "Bold orange colourway for standout group presence",
+          "Breathable fabric for warm-weather comfort",
+          "Available for individual and group orders",
+        ],
+        images: ["/images/products/casual/trousers-shorts-1.jpeg"],
+        whatsappMessage: whatsappMsg("Orange Event Matching Set"),
+      },
+      {
+        id: "casual-2",
+        name: "Artisan Print Tee",
+        description:
+          "Premium white tee featuring a hand-crafted African landscape artwork panel — where streetwear meets heritage.",
+        features: [
+          "Premium white cotton construction",
+          "Hand-crafted African landscape artwork band",
+          "Relaxed modern fit",
+          "Statement casual piece for the culturally aware",
+        ],
+        images: ["/images/products/casual/shirts-casual-6.jpeg"],
+        whatsappMessage: whatsappMsg("Artisan Print Tee"),
+      },
+      {
+        id: "casual-3",
+        name: "Tailored Trousers & Shorts",
+        description:
+          "Perfectly tailored trousers and shorts for the discerning professional. Inquire for details.",
         features: [
           "Premium fabric with tailored fit",
           "Clean lines and refined finishing",
           "Inquire for available styles and sizing",
         ],
         images: [],
-        whatsappMessage: whatsappMsg("Tailored Trousers"),
-      },
-      {
-        id: "casual-2",
-        name: "Smart-Casual Shorts",
-        description:
-          "Premium casual shorts with a tailored fit, perfect for warm-weather sophistication. Inquire for details.",
-        features: [
-          "Tailored fit with structured waistband",
-          "Breathable construction for warm weather",
-          "Inquire for available colours and sizing",
-        ],
-        images: [],
-        whatsappMessage: whatsappMsg("Smart-Casual Shorts"),
-      },
-      {
-        id: "casual-3",
-        name: "Executive Polo Set",
-        description:
-          "Classic polo with matching trousers for a polished casual ensemble. Inquire for details.",
-        features: [
-          "Coordinated polo and trouser set",
-          "Relaxed yet refined fit",
-          "Inquire for fabric options and sizing",
-        ],
-        images: [],
-        whatsappMessage: whatsappMsg("Executive Polo Set"),
+        whatsappMessage: whatsappMsg("Tailored Trousers & Shorts"),
       },
     ],
   },
@@ -391,6 +407,34 @@ export const collections: Collection[] = [
         ],
         images: ["/images/products/groomswear/groomswear-3.jpeg"],
         whatsappMessage: whatsappMsg("Orange Kente Wedding Set"),
+      },
+      {
+        id: "groomsman-groomswear-4",
+        name: "Lavender & Purple Groomsmen Set",
+        description:
+          "Sophisticated lavender short-sleeve sets for the groomsmen, anchored by the groom in a commanding purple agbada.",
+        features: [
+          "Lavender coordinated short-sleeve and trouser sets",
+          "Groom's full purple agbada for distinguished contrast",
+          "Elegant two-tone colour palette",
+          "Ideal for garden and outdoor ceremonies",
+        ],
+        images: ["/images/products/groomswear/groomswear-4.jpeg"],
+        whatsappMessage: whatsappMsg("Lavender & Purple Groomsmen Set"),
+      },
+      {
+        id: "groomsman-groomswear-5",
+        name: "Orange Celebration Party Set",
+        description:
+          "Vibrant orange coordinated sets for a joyful wedding party — energetic, unified, and unforgettable.",
+        features: [
+          "Bold orange matching sets for the full party",
+          "Relaxed celebration silhouette with premium finish",
+          "Perfect for traditional and outdoor reception events",
+          "Available for full group coordination",
+        ],
+        images: ["/images/products/groomswear/groomswear-5.jpeg"],
+        whatsappMessage: whatsappMsg("Orange Celebration Party Set"),
       },
     ],
   },
