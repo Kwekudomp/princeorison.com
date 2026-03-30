@@ -1,3 +1,5 @@
+export const dynamic = "force-dynamic";
+
 import HeroFullscreen from "@/components/HeroFullscreen";
 import NewArrivals from "@/components/NewArrivals";
 import FloatingMosaic from "@/components/FloatingMosaic";
