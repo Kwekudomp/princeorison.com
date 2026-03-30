@@ -33,7 +33,7 @@ UPDATE products SET is_new_arrival = true, arrival_label = 'Featured'
 -- ── videos ────────────────────────────────────────────────────
 -- Stores short showcase videos (reels, lookbooks, behind-the-scenes)
 CREATE TABLE videos (
-  id               UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+  id               UUID PRIMARY KEY DEFAULT gen_random_uuid(),
   title            TEXT    NOT NULL,
   caption          TEXT,
   storage_path     TEXT    NOT NULL,   -- path in Supabase Storage 'videos' bucket

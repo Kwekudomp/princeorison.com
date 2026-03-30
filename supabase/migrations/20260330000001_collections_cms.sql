@@ -5,11 +5,10 @@
 -- Tables: collections, products, product_images
 
 -- Enable UUID extension
-CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
 
 -- ── collections ──────────────────────────────────────────────
 CREATE TABLE collections (
-  id            UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+  id            UUID PRIMARY KEY DEFAULT gen_random_uuid(),
   slug          TEXT NOT NULL UNIQUE,
   name          TEXT NOT NULL,
   description   TEXT,
@@ -27,7 +26,7 @@ COMMENT ON COLUMN collections.is_bespoke IS 'True for made-to-order collections 
 
 -- ── products ─────────────────────────────────────────────────
 CREATE TABLE products (
-  id                UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+  id                UUID PRIMARY KEY DEFAULT gen_random_uuid(),
   collection_id     UUID NOT NULL REFERENCES collections(id) ON DELETE CASCADE,
   name              TEXT NOT NULL,
   description       TEXT,
@@ -42,7 +41,7 @@ COMMENT ON TABLE products IS 'Individual garment listings within a collection';
 
 -- ── product_features ─────────────────────────────────────────
 CREATE TABLE product_features (
-  id          UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+  id          UUID PRIMARY KEY DEFAULT gen_random_uuid(),
   product_id  UUID NOT NULL REFERENCES products(id) ON DELETE CASCADE,
   feature     TEXT NOT NULL,
   sort_order  INTEGER NOT NULL DEFAULT 0
@@ -52,7 +51,7 @@ COMMENT ON TABLE product_features IS 'Bullet-point feature list for each product
 
 -- ── product_images ────────────────────────────────────────────
 CREATE TABLE product_images (
-  id          UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+  id          UUID PRIMARY KEY DEFAULT gen_random_uuid(),
   product_id  UUID NOT NULL REFERENCES products(id) ON DELETE CASCADE,
   storage_path TEXT NOT NULL,               -- path in Supabase Storage bucket
   alt_text    TEXT,

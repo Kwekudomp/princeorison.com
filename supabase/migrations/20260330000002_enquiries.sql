@@ -5,7 +5,7 @@
 
 -- ── enquiries ────────────────────────────────────────────────
 CREATE TABLE enquiries (
-  id                    UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+  id                    UUID PRIMARY KEY DEFAULT gen_random_uuid(),
   name                  TEXT NOT NULL,
   phone                 TEXT NOT NULL,
   email                 TEXT,
@@ -32,7 +32,7 @@ CREATE TRIGGER trg_enquiries_updated_at
 
 -- ── newsletter_subscribers ────────────────────────────────────
 CREATE TABLE newsletter_subscribers (
-  id          UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+  id          UUID PRIMARY KEY DEFAULT gen_random_uuid(),
   email       TEXT NOT NULL UNIQUE,
   source      TEXT DEFAULT 'website',       -- website | footer | popup
   is_active   BOOLEAN NOT NULL DEFAULT true,
