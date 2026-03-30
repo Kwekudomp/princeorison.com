@@ -64,9 +64,11 @@ const tickerItems = [
 
 interface NewArrivalsProps {
   items?: NewArrivalItem[];
+  title?: string;
+  subtitle?: string;
 }
 
-export default function NewArrivals({ items }: NewArrivalsProps) {
+export default function NewArrivals({ items, title, subtitle }: NewArrivalsProps) {
   const arrivals = items && items.length > 0 ? items : STATIC_ARRIVALS;
   const ticker = [...tickerItems, ...tickerItems];
 
@@ -99,11 +101,14 @@ export default function NewArrivals({ items }: NewArrivalsProps) {
         >
           <div>
             <p className="text-[11px] tracking-[4px] uppercase text-accent font-semibold">
-              New Arrivals
+              {title ?? "New Arrivals"}
             </p>
             <h2 className="font-display text-4xl md:text-5xl lg:text-6xl font-light mt-3 text-white leading-tight">
-              Fresh From <br className="hidden md:block" />
-              The Atelier
+              {subtitle ? (
+                subtitle
+              ) : (
+                <>Fresh From <br className="hidden md:block" />The Atelier</>
+              )}
             </h2>
           </div>
           <Link

@@ -15,6 +15,7 @@ import {
   fetchCollections,
   fetchNewArrivals,
   fetchFeaturedVideo,
+  fetchSiteSettings,
 } from "@/lib/collections.service";
 import { adaptCollection } from "@/lib/collections.adapter";
 import type { NewArrivalItem } from "@/lib/collections.service";
@@ -35,6 +36,8 @@ export default async function Home() {
   let pageCollections = collections;
   let newArrivals: NewArrivalItem[] | undefined;
   let featuredVideo: VideoRow | null = null;
+  let arrivalsTitle = "New Arrivals";
+  let arrivalsSubtitle = "";
 
   if (useSupabase) {
     await Promise.allSettled([
@@ -49,6 +52,12 @@ export default async function Home() {
       fetchFeaturedVideo()
         .then((v) => { featuredVideo = v; })
         .catch(() => {}),
+      fetchSiteSettings(["new_arrivals_title", "new_arrivals_subtitle"])
+        .then((s) => {
+          if (s["new_arrivals_title"]) arrivalsTitle = s["new_arrivals_title"];
+          if (s["new_arrivals_subtitle"]) arrivalsSubtitle = s["new_arrivals_subtitle"];
+        })
+        .catch(() => {}),
     ]);
   }
 
@@ -58,7 +67,7 @@ export default async function Home() {
       <HeroFullscreen images={heroImages} />
 
       {/* ── 2. New Arrivals — dark luxury section ───── */}
-      <NewArrivals items={newArrivals} />
+      <NewArrivals items={newArrivals} title={arrivalsTitle} subtitle={arrivalsSubtitle} />
 
       {/* ── 3. Floating Mosaic — light section ──────── */}
       <FloatingMosaic />

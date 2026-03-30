@@ -155,6 +155,16 @@ export async function fetchNewArrivals(limit = 6): Promise<NewArrivalItem[]> {
   });
 }
 
+// ── Site Settings ─────────────────────────────────────────────
+
+export async function fetchSiteSettings(keys: string[]): Promise<Record<string, string>> {
+  const res = await supabase.from("site_settings").select("key, value").in("key", keys);
+  if (res.error) return {};
+  return Object.fromEntries(
+    ((res.data ?? []) as { key: string; value: string | null }[]).map(r => [r.key, r.value ?? ""])
+  );
+}
+
 // ── Videos ────────────────────────────────────────────────────
 
 export function getVideoUrl(storagePath: string | null | undefined): string {
