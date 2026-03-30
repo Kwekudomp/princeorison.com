@@ -3,53 +3,55 @@
 import Image from "next/image";
 import Link from "next/link";
 import { motion } from "framer-motion";
+import type { NewArrivalItem } from "@/lib/collections.service";
 
-const arrivals = [
+// Static fallback used when Supabase is not yet configured
+const STATIC_ARRIVALS: NewArrivalItem[] = [
   {
     id: "na-1",
     image: "/images/products/kaftan-casual/shirts-casual-5.jpeg",
-    collection: "Kaftan Casual",
-    slug: "kaftan-casual",
+    collection: "KAFTAN (Casual)",
+    collectionSlug: "kaftan-casual",
     name: "All-White Kaftan Set",
     tag: "New",
   },
   {
     id: "na-2",
     image: "/images/products/agbada-3-piece/kaftan-agbada-1.jpeg",
-    collection: "Agbada",
-    slug: "agbada-3-piece",
+    collection: "AGBADA (3 Piece)",
+    collectionSlug: "agbada-3-piece",
     name: "Royal Burgundy Agbada",
     tag: "Featured",
   },
   {
     id: "na-3",
     image: "/images/products/groomswear/groomswear-4.jpeg",
-    collection: "Groomswear",
-    slug: "groomsman-groomswear",
+    collection: "GROOMSMAN/GROOMSWEAR",
+    collectionSlug: "groomsman-groomswear",
     name: "Lavender & Purple Set",
     tag: "New",
   },
   {
     id: "na-4",
     image: "/images/products/casual/trousers-shorts-1.jpeg",
-    collection: "Casual",
-    slug: "casual",
+    collection: "CASUAL",
+    collectionSlug: "casual",
     name: "Orange Event Matching Set",
     tag: "New",
   },
   {
     id: "na-5",
     image: "/images/products/rtw-collection/womens-collection-1.jpeg",
-    collection: "RTW Collection",
-    slug: "rtw-collection",
+    collection: "RTW COLLECTION",
+    collectionSlug: "rtw-collection",
     name: "Elegant Statement Piece",
     tag: "Featured",
   },
   {
     id: "na-6",
     image: "/images/products/agbada-3-piece/kaftan-agbada-3.jpeg",
-    collection: "Agbada",
-    slug: "agbada-3-piece",
+    collection: "AGBADA (3 Piece)",
+    collectionSlug: "agbada-3-piece",
     name: "Heritage Kente Agbada",
     tag: "Featured",
   },
@@ -60,8 +62,13 @@ const tickerItems = [
   "CASUAL WEAR", "JALABIYA", "ANKARA BLENDS", "KAFTAN JACKET",
 ];
 
-export default function NewArrivals() {
-  const ticker = [...tickerItems, ...tickerItems]; // duplicate for seamless loop
+interface NewArrivalsProps {
+  items?: NewArrivalItem[];
+}
+
+export default function NewArrivals({ items }: NewArrivalsProps) {
+  const arrivals = items && items.length > 0 ? items : STATIC_ARRIVALS;
+  const ticker = [...tickerItems, ...tickerItems];
 
   return (
     <section id="new-arrivals" className="dark-luxury py-24 overflow-hidden">
@@ -118,19 +125,24 @@ export default function NewArrivals() {
               transition={{ duration: 0.55, delay: i * 0.1, ease: "easeOut" }}
             >
               <Link
-                href={`/collections/${item.slug}`}
+                href={`/collections/${item.collectionSlug}`}
                 className="block arrival-card group cursor-pointer"
               >
                 {/* Image */}
                 <div className="relative aspect-[3/4] rounded-2xl overflow-hidden bg-[#1a1a1a]">
-                  <Image
-                    src={item.image}
-                    alt={item.name}
-                    fill
-                    className="object-cover transition-transform duration-700 group-hover:scale-105"
-                    sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                  />
-                  {/* Subtle bottom gradient */}
+                  {item.image ? (
+                    <Image
+                      src={item.image}
+                      alt={item.name}
+                      fill
+                      className="object-cover transition-transform duration-700 group-hover:scale-105"
+                      sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                    />
+                  ) : (
+                    <div className="absolute inset-0 flex items-center justify-center">
+                      <span className="font-display text-white/20 text-lg">{item.name}</span>
+                    </div>
+                  )}
                   <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
 
                   {/* Tag badge */}
@@ -139,6 +151,8 @@ export default function NewArrivals() {
                       className={`text-[10px] tracking-[3px] uppercase font-semibold px-3 py-1 rounded-full ${
                         item.tag === "New"
                           ? "bg-accent text-white"
+                          : item.tag === "Limited"
+                          ? "bg-red-600/80 text-white"
                           : "bg-white/15 backdrop-blur-sm text-white border border-white/20"
                       }`}
                     >
@@ -146,7 +160,7 @@ export default function NewArrivals() {
                     </span>
                   </div>
 
-                  {/* Hover CTA overlay */}
+                  {/* Hover CTA */}
                   <div className="absolute inset-x-0 bottom-0 p-5 translate-y-2 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-300">
                     <span className="text-xs tracking-[3px] uppercase text-white/80 font-medium">
                       View Collection &rarr;

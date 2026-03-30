@@ -32,11 +32,31 @@ export interface Database {
           whatsapp_message: string | null;
           display_order: number;
           is_published: boolean;
+          is_new_arrival: boolean;
+          arrival_label: "New" | "Featured" | "Season" | "Limited";
           created_at: string;
           updated_at: string;
         };
         Insert: Omit<Database["public"]["Tables"]["products"]["Row"], "id" | "created_at" | "updated_at">;
         Update: Partial<Database["public"]["Tables"]["products"]["Insert"]>;
+      };
+      videos: {
+        Row: {
+          id: string;
+          title: string;
+          caption: string | null;
+          storage_path: string;
+          thumbnail_path: string | null;
+          duration_seconds: number | null;
+          category: "showcase" | "lookbook" | "behind-the-scenes" | "reel";
+          display_order: number;
+          is_published: boolean;
+          is_featured: boolean;
+          created_at: string;
+          updated_at: string;
+        };
+        Insert: Omit<Database["public"]["Tables"]["videos"]["Row"], "id" | "created_at" | "updated_at">;
+        Update: Partial<Database["public"]["Tables"]["videos"]["Insert"]>;
       };
       product_features: {
         Row: {
@@ -101,6 +121,7 @@ export type ProductImageRow = Database["public"]["Tables"]["product_images"]["Ro
 export type ProductFeatureRow = Database["public"]["Tables"]["product_features"]["Row"];
 export type EnquiryInsert = Database["public"]["Tables"]["enquiries"]["Insert"];
 export type NewsletterInsert = Database["public"]["Tables"]["newsletter_subscribers"]["Insert"];
+export type VideoRow = Database["public"]["Tables"]["videos"]["Row"];
 
 // ── Joined type used by the frontend ─────────────────────────
 export type CollectionWithProducts = CollectionRow & {
