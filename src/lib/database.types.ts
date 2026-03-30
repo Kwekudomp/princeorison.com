@@ -119,7 +119,9 @@ export type CollectionRow = Database["public"]["Tables"]["collections"]["Row"];
 export type ProductRow = Database["public"]["Tables"]["products"]["Row"];
 export type ProductImageRow = Database["public"]["Tables"]["product_images"]["Row"];
 export type ProductFeatureRow = Database["public"]["Tables"]["product_features"]["Row"];
+export type EnquiryRow = Database["public"]["Tables"]["enquiries"]["Row"];
 export type EnquiryInsert = Database["public"]["Tables"]["enquiries"]["Insert"];
+export type NewsletterRow = Database["public"]["Tables"]["newsletter_subscribers"]["Row"];
 export type NewsletterInsert = Database["public"]["Tables"]["newsletter_subscribers"]["Insert"];
 export type VideoRow = Database["public"]["Tables"]["videos"]["Row"];
 
