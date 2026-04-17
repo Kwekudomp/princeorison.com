@@ -1,26 +1,12 @@
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
 import Link from "next/link";
-import { collections as staticCollections, getCollectionBySlug } from "@/data/collections";
-import { fetchCollections, fetchCollectionBySlug } from "@/lib/collections.service";
-import { adaptCollection } from "@/lib/collections.adapter";
+import { collections, getCollectionBySlug } from "@/data/collections";
 import ProductCard from "@/components/ProductCard";
 import CTASection from "@/components/CTASection";
 
-const useSupabase =
-  !!process.env.NEXT_PUBLIC_SUPABASE_URL &&
-  !!process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
-
-export async function generateStaticParams() {
-  if (useSupabase) {
-    try {
-      const rows = await fetchCollections();
-      if (rows.length > 0) return rows.map((c) => ({ slug: c.slug }));
-    } catch {
-      // fall through
-    }
-  }
-  return staticCollections.map((c) => ({ slug: c.slug }));
+export function generateStaticParams() {
+  return collections.map((c) => ({ slug: c.slug }));
 }
 
 export async function generateMetadata({
@@ -29,28 +15,11 @@ export async function generateMetadata({
   params: Promise<{ slug: string }>;
 }): Promise<Metadata> {
   const { slug } = await params;
-  let name = "";
-  let description = "";
-
-  if (useSupabase) {
-    try {
-      const row = await fetchCollectionBySlug(slug);
-      if (row) {
-        name = row.name;
-        description = row.hero_description ?? "";
-      }
-    } catch {
-      // fall through
-    }
-  }
-
-  if (!name) {
-    const col = getCollectionBySlug(slug);
-    name = col?.name ?? "Collection";
-    description = col?.heroDescription ?? "";
-  }
-
-  return { title: name, description };
+  const col = getCollectionBySlug(slug);
+  return {
+    title: col?.name ?? "Collection",
+    description: col?.heroDescription ?? "",
+  };
 }
 
 export default async function CollectionPage({
@@ -59,16 +28,7 @@ export default async function CollectionPage({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
-  let collection = getCollectionBySlug(slug);
-
-  if (useSupabase) {
-    try {
-      const row = await fetchCollectionBySlug(slug);
-      if (row) collection = adaptCollection(row);
-    } catch {
-      // fall through to static
-    }
-  }
+  const collection = getCollectionBySlug(slug);
 
   if (!collection) notFound();
 

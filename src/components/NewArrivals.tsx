@@ -3,9 +3,16 @@
 import Image from "next/image";
 import Link from "next/link";
 import { motion } from "framer-motion";
-import type { NewArrivalItem } from "@/lib/collections.service";
 
-// Static fallback used when Supabase is not yet configured
+export interface NewArrivalItem {
+  id: string;
+  image: string;
+  collection: string;
+  collectionSlug: string;
+  name: string;
+  tag: "New" | "Featured" | "Season" | "Limited";
+}
+
 const STATIC_ARRIVALS: NewArrivalItem[] = [
   {
     id: "na-1",

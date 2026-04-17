@@ -1,5 +1,3 @@
-export const dynamic = "force-dynamic";
-
 import HeroFullscreen from "@/components/HeroFullscreen";
 import NewArrivals from "@/components/NewArrivals";
 import FloatingMosaic from "@/components/FloatingMosaic";
@@ -11,15 +9,6 @@ import CTASection from "@/components/CTASection";
 import ScrollReveal from "@/components/ScrollReveal";
 import Link from "next/link";
 import { collections } from "@/data/collections";
-import {
-  fetchCollections,
-  fetchNewArrivals,
-  fetchFeaturedVideo,
-  fetchSiteSettings,
-} from "@/lib/collections.service";
-import { adaptCollection } from "@/lib/collections.adapter";
-import type { NewArrivalItem } from "@/lib/collections.service";
-import type { VideoRow } from "@/lib/database.types";
 
 const heroImages = [
   { src: "/images/products/kaftan-casual/shirts-casual-5.jpeg", alt: "All-white kaftan set by Prince Orison" },
@@ -28,51 +17,19 @@ const heroImages = [
   { src: "/images/hero/hero-4.jpeg", alt: "Prince Orison fashion showcase" },
 ];
 
-const useSupabase =
-  !!process.env.NEXT_PUBLIC_SUPABASE_URL &&
-  !!process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
-
-export default async function Home() {
-  let pageCollections = collections;
-  let newArrivals: NewArrivalItem[] | undefined;
-  let featuredVideo: VideoRow | null = null;
-  let arrivalsTitle = "New Arrivals";
-  let arrivalsSubtitle = "";
-
-  if (useSupabase) {
-    await Promise.allSettled([
-      fetchCollections()
-        .then((rows) => {
-          if (rows.length > 0) pageCollections = rows.map(adaptCollection);
-        })
-        .catch(() => {}),
-      fetchNewArrivals(6)
-        .then((items) => { newArrivals = items; })
-        .catch(() => {}),
-      fetchFeaturedVideo()
-        .then((v) => { featuredVideo = v; })
-        .catch(() => {}),
-      fetchSiteSettings(["new_arrivals_title", "new_arrivals_subtitle"])
-        .then((s) => {
-          if (s["new_arrivals_title"]) arrivalsTitle = s["new_arrivals_title"];
-          if (s["new_arrivals_subtitle"]) arrivalsSubtitle = s["new_arrivals_subtitle"];
-        })
-        .catch(() => {}),
-    ]);
-  }
-
+export default function Home() {
   return (
     <>
-      {/* ── 1. Cinematic Editorial Hero ─────────────── */}
+      {/* 1. Cinematic Editorial Hero */}
       <HeroFullscreen images={heroImages} />
 
-      {/* ── 2. New Arrivals — dark luxury section ───── */}
-      <NewArrivals items={newArrivals} title={arrivalsTitle} subtitle={arrivalsSubtitle} />
+      {/* 2. New Arrivals */}
+      <NewArrivals />
 
-      {/* ── 3. Floating Mosaic — light section ──────── */}
+      {/* 3. Floating Mosaic */}
       <FloatingMosaic />
 
-      {/* ── 4. Featured Collections ──────────────────── */}
+      {/* 4. Featured Collections */}
       <section className="py-24 px-[5%]">
         <ScrollReveal>
           <div className="text-center max-w-3xl mx-auto mb-16">
@@ -90,7 +47,7 @@ export default async function Home() {
         </ScrollReveal>
 
         <div className="max-w-[1400px] mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {pageCollections.slice(0, 6).map((col, i) => (
+          {collections.slice(0, 6).map((col, i) => (
             <CollectionCard key={col.slug} collection={col} index={i} />
           ))}
         </div>
@@ -103,13 +60,13 @@ export default async function Home() {
         </Link>
       </section>
 
-      {/* ── 5. Behind The Craft — dark video section ── */}
-      <VideoSection video={featuredVideo} />
+      {/* 5. Behind The Craft — video section */}
+      <VideoSection />
 
-      {/* ── 6. Brand Story — light section ───────────── */}
+      {/* 6. Brand Story */}
       <BrandStory />
 
-      {/* ── 7. Values ─────────────────────────────────── */}
+      {/* 7. Values */}
       <section className="py-24 px-[5%] bg-bg-surface">
         <ScrollReveal>
           <div className="text-center max-w-3xl mx-auto mb-16">
@@ -128,7 +85,7 @@ export default async function Home() {
         <ValuesGrid />
       </section>
 
-      {/* ── 8. Final CTA ──────────────────────────────── */}
+      {/* 8. Final CTA */}
       <CTASection
         title="Let's Create Something Exceptional"
         subtitle="Schedule a consultation or visit our showroom in Accra to experience the Prince Orison difference."
