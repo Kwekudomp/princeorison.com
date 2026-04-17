@@ -309,8 +309,22 @@ export const collections: Collection[] = [
     description: "Casual everyday wear for the modern professional",
     heroDescription:
       "Elevate your off-duty wardrobe with our casual collection. From perfectly tailored trousers to premium shorts, each piece is designed for the modern professional who values comfort without compromising on style.",
-    coverImage: "/images/products/casual/trousers-shorts-1.jpeg",
+    coverImage: "/images/products/casual/green-polo-1.jpeg",
     products: [
+      {
+        id: "casual-green-polo",
+        name: "Emerald Polo & Trouser Set",
+        description:
+          "Tonal emerald green polo paired with matching tailored trousers — refined off-duty dressing with an elevated edge.",
+        features: [
+          "Textured piqué polo with signature embroidered emblem",
+          "Coordinated trousers in matching emerald tone",
+          "Breathable premium fabric for warm-weather comfort",
+          "Clean tonal styling suited to weekend and resort wear",
+        ],
+        images: ["/images/products/casual/green-polo-1.jpeg"],
+        whatsappMessage: whatsappMsg("Emerald Polo & Trouser Set"),
+      },
       {
         id: "casual-1",
         name: "Orange Event Matching Set",
